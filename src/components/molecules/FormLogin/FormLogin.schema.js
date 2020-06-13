@@ -7,7 +7,7 @@ const formloginSchema = yup.object().shape({
     .max(20, 'Máximo de 20 caracteres'),
   password: yup.string()
     .required('Campo obrigatório')
-    .min(6, 'Mínimo de 6 caracteres')
+    .min(5, 'Mínimo de 5 caracteres')
     .max(60, 'Máximo de 60 caracteres'),
 });
 

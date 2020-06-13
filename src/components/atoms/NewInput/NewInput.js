@@ -30,7 +30,7 @@ name, label, mask, value, type, isLoading, handleChange, handleBlur, placeholder
         />
       ) : (
         <InputText
-          defaultValue={value}
+          initialValues={value}
           value={value}
           disabled={isLoading}
           onChange={handleChange}

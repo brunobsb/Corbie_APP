@@ -5,7 +5,7 @@ import { MasterTemplate } from '../../templates';
 const Home = () => {
   return (
     <MasterTemplate>
-      ghhhjhjhjhjhjhjhjh
+      Teste
     </MasterTemplate>
   );
 };
