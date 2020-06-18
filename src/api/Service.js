@@ -19,7 +19,7 @@ class ApiService {
 
       const { type, token, refresh_token } = tokenInfo;
       try {
-        await axios.get("http://localhost:5000/api/private/verify-token", {
+        await this.api.get("/api/private/verify-token", {
           headers: { Authorization: `${type} ${token}` }
         });
 
@@ -34,12 +34,9 @@ class ApiService {
           (message === "jwt expired" || message === "Token not found")
         ) {
           try {
-            const {
-              data
-            } = await axios.get(
-              "http://localhost:5000/api/private/refresh-token",
-              { headers: { Authorization: `${type} ${refresh_token}` } }
-            );
+            const { data } = await this.api.get("/api/private/refresh-token", {
+              headers: { Authorization: `${type} ${refresh_token}` }
+            });
 
             localStorage.setItem("logged-user-info", JSON.stringify(data));
 
@@ -61,13 +58,9 @@ class ApiService {
 
   //User
   subscribeUser = async values => {
-    try {
-      const data = await this.api.post("/api/public/auth/signup", values);
+    const { data } = await this.api.post("/api/public/auth/signup", values);
 
-      return data;
-    } catch (err) {
-      return err.message;
-    }
+    return data || data.message;
   };
 
   loginUser = async values => {
@@ -85,7 +78,7 @@ class ApiService {
   updateUserInfo = async values => {
     const { data } = await this.api.put("/api/private/user", values);
 
-    return { ...data, message: data.message } || data.message;
+    return data || data.message;
   };
 
   deleteUser = async () => {
