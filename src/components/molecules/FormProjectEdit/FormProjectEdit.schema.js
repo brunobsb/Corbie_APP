@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const formprojectcreateSchema = yup.object().shape({
+const formprojecteditSchema = yup.object().shape({
 
   title: yup.string()
     .required('Campo obrigatório')
@@ -21,8 +21,8 @@ const formprojectcreateSchema = yup.object().shape({
     .required('Campo obrigatório'),
   dueDate: yup.date()
     .required('Campo obrigatório'),
-  // user: yup.string()
-  //   .required('Campo obrigatório'),//ver relação com campos id no yup.
+//   user: yup.string()
+//     .required('Campo obrigatório'),//ver relação com campos id no yup.
 });
 
-export default formprojectcreateSchema;
+export default formprojecteditSchema;

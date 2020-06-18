@@ -22,7 +22,7 @@ const FormLogin = ({logUser, ...props}) => {
       localStorage.setItem('logged-user-info', JSON.stringify(logged));
       action.setSubmitting(false);
 
-      props.history.push('/displayallpage');
+      props.history.push('/Edit');
     } catch (err) {
       setLoginApiErrorMessage(err.response.data.message);
     }

@@ -1,16 +1,16 @@
 import React from 'react';
 //import { Redirect } from 'react-router-dom';
 import { ProjectTemplate } from '../../templates';
-import { FormProjectManagement } from '../../components/molecules';
+import { FormTaskEdit } from '../../components/molecules';
 
 
-const ProjectManagement = (props) => {
+const TaskEdit = (props) => {
   return (
 
     <ProjectTemplate>
-      <FormProjectManagement {...props} />
+      <FormTaskEdit {...props} />
     </ProjectTemplate>
   );
 };
 
-export default ProjectManagement;
+export default TaskEdit;

@@ -15,17 +15,30 @@ const ProjectTemplate = ({children}) => {
           <Logo style={{marginTop:'-10px', width: '50px'}} />
         </div>
         <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}>
+
           <Menu.Item key="1">
+            <Link to="/dashboard" />
+            Dashboard
+          </Menu.Item>
+
+          <Menu.Item key="2">
             <Link to="create-project" />
             Criar Projeto
           </Menu.Item>
-          <Menu.Item key="2">
+
+          <Menu.Item key="3">
             <Link to="/view-project" />
             Visualizar projetos
           </Menu.Item>
-          <Menu.Item key="3">
+
+          <Menu.Item key="4">
             <Link to="/edit-project" />
             Administar Projetos
+          </Menu.Item>
+
+          <Menu.Item key="5">
+            <Link to="/logout" />
+            Logout
           </Menu.Item>
           {/* <Menu.Item key="3">nav 3</Menu.Item> */}
         </Menu>

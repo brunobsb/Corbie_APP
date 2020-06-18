@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import formeditSchema from './FormEdit.schema';
 import { FormWrapper } from './FormEdit.style';
 import { NewInput, Button } from '../../atoms';
-import  ApiService  from '../../../api/Service'
+import  ApiService  from '../../../api/Service';
 import { Skeleton } from 'antd';
 
 class FormEdit extends Component {
@@ -17,8 +17,13 @@ class FormEdit extends Component {
     };
   
     async componentDidMount () {
+      console.log(localStorage);
       const { name, username, email, password } = await ApiService.getUserInfo();
-
+      const projects = await ApiService.getProjectInfo();
+      console.log(projects);
+      const projectid = "5ee947532a8e293c1f4cd66d"
+      const tasks = await ApiService.getTaskInfo(projectid);
+      console.log(tasks);
     this.setState({
         initialState: {
           name, username, email, password
@@ -37,6 +42,7 @@ class FormEdit extends Component {
             initialValues={this.state.initialState}
             validationSchema={formeditSchema}
             onSubmit={this.onSubmitMethod}
+            enableReinitialize
           >
             {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit, ...props }) => (
               <form onSubmit={handleSubmit}>

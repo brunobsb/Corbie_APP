@@ -14,8 +14,10 @@ const FormSignup = (props) => {
   };
 
   const onSubmitMethod = async (values, actions) => {
+    // console.log(values);
     await ApiService.subscribeUser(values);
     actions.setSubmitting(false);
+
 
     props.history.push('/login');
 
@@ -80,7 +82,7 @@ const FormSignup = (props) => {
             handleChange={handleChange}
             handleBlur={handleBlur}
           />
-          <Button type="Cadastrar" isLoading={isSubmitting}>Entrar</Button>
+          <Button type="submit" isLoading={isSubmitting}>Entrar</Button>
         </form>
       )}
     />

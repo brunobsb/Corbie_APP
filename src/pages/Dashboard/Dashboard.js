@@ -2,7 +2,7 @@ import React from 'react';
 import { LoggedTemplate } from '../../templates';
 
 
-const DisplayAllPage = () => {
+const Dashboard = () => {
   return (
     <LoggedTemplate>
       Teste222222
@@ -10,4 +10,4 @@ const DisplayAllPage = () => {
   );
 };
 
-export default DisplayAllPage;
+export default Dashboard;

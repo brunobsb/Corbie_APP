@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import formprojectmanagementSchema from './FormProjectManagement.schema';
-import { FormWrapper } from './FormProjectManagement.style';
+import formprojecteditSchema from './FormProjectEdit.schema';
+import { FormWrapper } from './FormProjectEdit.style';
 import { NewInput, Button } from '../../atoms';
 import  ApiService  from '../../../api/Service'
 import { Skeleton } from 'antd';
 
-class FormProjectManagement extends Component {
+class FormProjectEdit extends Component {
     state = {
       isUserInfoLoaded: false,
       initialState: {
@@ -21,7 +21,7 @@ class FormProjectManagement extends Component {
     }
   
     async componentDidMount () {
-      const { title, description, hourPrice, duration, cost, status, creationDate, dueDate } = await ApiService.getUserInfo();
+      const { title, description, hourPrice, duration, cost, status, creationDate, dueDate } = await ApiService.getProjectInfo();
 
     this.setState({
         initialState: {
@@ -39,11 +39,12 @@ class FormProjectManagement extends Component {
         return this.state.isUserInfoLoaded ? (
           <FormWrapper
             initialValues={this.state.initialState}
-            validationSchema={formprojectmanagementSchema}
+            validationSchema={formprojecteditSchema}
             onSubmit={this.onSubmitMethod}
           >
             {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit, ...props }) => (
               <form onSubmit={handleSubmit}>
+              <div>
               <NewInput
             {...props}
             name="title"
@@ -155,8 +156,8 @@ class FormProjectManagement extends Component {
             handleChange={handleChange}
             handleBlur={handleBlur}
           />
-      
-                <Button type="Cadastrar" isLoading={isSubmitting}>Atualizar</Button>
+      </div>
+                <Button type="submit" isLoading={isSubmitting}>Atualizar</Button>
               </form>
             )}
           </FormWrapper>
@@ -166,5 +167,5 @@ class FormProjectManagement extends Component {
       }
     }
     
-    export default FormProjectManagement;
+    export default FormProjectEdit;
     

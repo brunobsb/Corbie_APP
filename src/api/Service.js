@@ -5,66 +5,61 @@ class ApiService {
     this.api = axios.create({
       baseURL: 'http://localhost:5000',
     });
-  }
-  //   this.api.interceptors.request.use(async config => {
-  //     if (config.url.includes('public')) return config;
-  //     // pegar a token do localStorage
-  //     // chamar serviço /verify-token
-  //     // SE verify-token OK -> seta os headers com a token return config (continua com o request normal)
-  //     // SE verify-token NÃO OK --> tenta bater no refresh-token
-  //     // /refresh-token ---> entrega novas token e refresh_token
-  //     // Se o refresh-token OK --> atualiza o localStorage e seta os headers com a nova token e return config
-  //     // Se o refresh-token NÃO OK --> limpa localStorage e redireciona para o /login
+  
+    this.api.interceptors.request.use(async config => {
+      if (config.url.includes('public')) return config;
 
-  //     const tokenInfo = JSON.parse(localStorage.getItem('logged-user-info'));
 
-  //     if (!tokenInfo) {
-  //       window.location = '/login';
+      const tokenInfo = JSON.parse(localStorage.getItem('logged-user-info'));
 
-  //       return;
-  //     }
+      if (!tokenInfo) {
+        window.location = '/login';
 
-  //     const { type, token, refresh_token } = tokenInfo;
-  //     try {
-  //       await axios.get('http://localhost:5000/api/private/verify-token', { headers: { Authorization: `${type} ${token}` } });
+        return;
+      }
 
-  //       config.headers.Authorization = `${type} ${token}`;
-  //       return config;
-  //     } catch (error) {
-  //       const { message } = error.response.data;
-  //       const { status } = error.response;
+      const { type, token, refresh_token } = tokenInfo;
+      try {
+        await axios.get('http://localhost:5000/api/private/verify-token', { headers: { Authorization: `${type} ${token}` } });
 
-  //       if (status === 401 && (message === 'jwt expired' || message === 'Token not found')) {
-  //         try {
-  //           const { data } = await axios.get('http://localhost:5000/api/private/refresh-token', { headers: { Authorization: `${type} ${refresh_token}` } })
+        config.headers.Authorization = `${type} ${token}`;
+        return config;
+      } catch (error) {
+        const { message } = error.response.data;
+        const { status } = error.response;
+
+        if (status === 401 && (message === 'jwt expired' || message === 'Token not found')) {
+          try {
+            const { data } = await axios.get('http://localhost:5000/api/private/refresh-token', { headers: { Authorization: `${type} ${refresh_token}` } })
             
-  //           localStorage.setItem('logged-user-info', JSON.stringify(data));
+            localStorage.setItem('logged-user-info', JSON.stringify(data));
 
-  //           config.headers.Authorization = `${data.type} ${data.token}`;
+            config.headers.Authorization = `${data.type} ${data.token}`;
 
-  //           return config;
-  //         } catch (error) {
-  //           localStorage.removeItem('logged-user-info');
+            return config;
+          } catch (error) {
+            localStorage.removeItem('logged-user-info');
 
-  //           window.location = '/login';
+            window.location = '/login';
 
-  //           return;
-  //         }
-  //       }
-  //     }
-  //     return config;
-  //   });
-  // }
+            return;
+          }
+        }
+      }
+      return config;
+    });
+  }
 
-//   listProjetos = async () => {
-//     const { data } = await this.api.get('/api/public/project');
+  listProjetos = async () => {
+    const { data } = await this.api.get('/api/public/project');
     
-//     return data;
-//   };
+    return data;
+  };
 
   subscribeUser = async values => {
+  
     try {
-      const { data } = await this.api.post('/api/public/auth/signup', values);
+      const data  = await this.api.post('/api/public/auth/signup', values);
       
       return data;
     } catch (err) {
@@ -79,9 +74,32 @@ class ApiService {
   };
 
   getUserInfo = async () => {
-    const { data } = await this.api.get('/api/private/user',);
+    const { data } = await this.api.get('/api/private/user');
 
     return data.user || {};
+  };
+
+  createProject = async values => {
+  
+    try {
+      const data  = await this.api.post('/api/private/project', values);
+      
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  };
+
+  getProjectInfo = async () => {
+    const { data } = await this.api.get('/api/private/projects');
+
+    return data.project || {};
+  };
+
+  getTaskInfo = async (id) => {
+    const { data } = await this.api.get(`/api/private/tasks/${id}`);
+
+    return data.task || {};
   };
 }
 

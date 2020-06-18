@@ -1,1 +1,1 @@
-export { default as DisplayAll } from './DisplayAll/DisplayAll';
+export { default as Dashboard } from './Dashboard/Dashboard';

@@ -26,3 +26,14 @@
       display: flex !important;
       justify-content: space-between;
   }
+
+
+  .formstyle {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+align-content: space-around;
+    
+  }

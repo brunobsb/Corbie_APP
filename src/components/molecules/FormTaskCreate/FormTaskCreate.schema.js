@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const formprojectcreateSchema = yup.object().shape({
+const formtaskcreateSchema = yup.object().shape({
 
   title: yup.string()
     .required('Campo obrigatório')
@@ -9,20 +9,20 @@ const formprojectcreateSchema = yup.object().shape({
   description: yup.string()
     .min(4, 'Mínimo de 4 caracteres')
     .max(50, 'Máximo de 50 caracteres'),
-  hourPrice: yup.number()
-    .required('Campo obrigatório'),
   duration: yup.number()
     .required('Campo obrigatório'),
   cost: yup.number()
     .required('Campo obrigatório'),
   status: yup.string()
     .required('Campo obrigatório'),
+  type: yup.string()
+    .required('Campo obrigatório'),
+  profitable: yup.boolean()
+    .required('Campo obrigatório'),
   creationDate: yup.date()
     .required('Campo obrigatório'),
   dueDate: yup.date()
     .required('Campo obrigatório'),
-//   user: yup.string()
-//     .required('Campo obrigatório'),//ver relação com campos id no yup.
-});
 
-export default formprojectcreateSchema;
+});
+export default formtaskcreateSchema;

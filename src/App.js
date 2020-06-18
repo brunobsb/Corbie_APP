@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { ProtectedRoute } from './components/authentication';
-import { Home, Login, Signup, Edit, ProjectCreate, ProjectManagement, DisplayAllPage} from './pages';
+import { Home, Login, Signup, Edit, ProjectCreate, ProjectEdit, TaskCreate, TaskEdit, Dashboard} from './pages';
 
 class App extends Component {
   constructor() {
@@ -12,7 +12,18 @@ class App extends Component {
       userInfo: {},
       loggedUser: null,
     };
+    this.verifyLoggedUser()
   }
+
+  verifyLoggedUser = async () => {
+    const loggedUserInfo = localStorage.getItem('logged-user-info');
+
+    // eslint-disable-next-line react/no-direct-mutation-state
+    if (loggedUserInfo) {
+      this.state.loggedUser = true;
+    }
+  };
+
 
   logUser = () => {
     this.setState({
@@ -20,6 +31,7 @@ class App extends Component {
     });
   }
 
+  
   render() {
     return (
     <BrowserRouter>
@@ -61,16 +73,34 @@ class App extends Component {
             exact
             path="/edit-project"
             loggedUser={this.state.loggedUser}
-            component={ProjectManagement}
+            component={ProjectEdit}
+            userInfo={this.state.userInfo}
+            // render={props => <ProjectManagement {...props} />}
+          />
+
+          <Route
+            exact
+            path="/create-task"
+            loggedUser={this.state.loggedUser}
+            component={TaskCreate}
+            userInfo={this.state.userInfo}
+            // render={props => <ProjectCreate {...props} />}
+          />
+
+          <Route
+            exact
+            path="/edit-task"
+            loggedUser={this.state.loggedUser}
+            component={TaskEdit}
             userInfo={this.state.userInfo}
             // render={props => <ProjectManagement {...props} />}
           />
 
           <ProtectedRoute
             exact
-            path="/displayallpage"
+            path="/dashboard"
             loggedUser={this.state.loggedUser}
-            component={DisplayAllPage}
+            component={Dashboard}
             userInfo={this.state.userInfo}
             // render={props => <DisplayAllPage {...props} />}
           />
