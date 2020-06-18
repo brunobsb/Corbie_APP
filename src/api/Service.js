@@ -85,20 +85,20 @@ class ApiService {
   updateUserInfo = async values => {
     const { data } = await this.api.put("/api/private/user", values);
 
-    return data.user || {};
+    return { ...data, message: data.message } || data.message;
   };
 
   deleteUser = async () => {
     const { data } = await this.api.delete("/api/private/user");
 
-    return data.user || {};
+    return data.message || {};
   };
 
   //Project
   listAllProjects = async () => {
     const { data } = await this.api.get("/api/private/projects");
 
-    return data.project || {};
+    return data.projects || {};
   };
 
   getProjectInfo = async id => {
@@ -122,14 +122,14 @@ class ApiService {
   deleteProject = async id => {
     const { data } = await this.api.delete(`/api/private/project/${id}`);
 
-    return data.project || {};
+    return data.message || {};
   };
 
   //Tasks
   listAllTasksFromProject = async id => {
     const { data } = await this.api.get(`/api/private/tasks/${id}`);
 
-    return data.task || {};
+    return data.tasks || {};
   };
 
   getTaskInfo = async id => {
@@ -153,7 +153,7 @@ class ApiService {
   deleteTask = async id => {
     const { data } = await this.api.delete(`/api/private/task/${id}`);
 
-    return data.task || {};
+    return data.message || {};
   };
 }
 
