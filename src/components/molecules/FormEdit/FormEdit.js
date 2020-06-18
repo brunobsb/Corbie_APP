@@ -19,10 +19,10 @@ class FormEdit extends Component {
     async componentDidMount () {
       console.log(localStorage);
       const { name, username, email, password } = await ApiService.getUserInfo();
-      const projects = await ApiService.getProjectInfo();
+      const projects = await ApiService.listAllProjects();
       console.log(projects);
       const projectid = "5ee947532a8e293c1f4cd66d"
-      const tasks = await ApiService.getTaskInfo(projectid);
+      const tasks = await ApiService.listAllTasksFromProject(projectid);
       console.log(tasks);
     this.setState({
         initialState: {
