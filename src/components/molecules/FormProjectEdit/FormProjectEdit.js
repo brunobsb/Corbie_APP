@@ -21,7 +21,16 @@ class FormProjectEdit extends Component {
     }
   
     async componentDidMount () {
-      const { title, description, hourPrice, duration, cost, status, creationDate, dueDate } = await ApiService.getProjectInfo();
+      const {
+        title,
+        description,
+        hourPrice,
+        duration,
+        cost,
+        status,
+        creationDate,
+        dueDate
+      } = await ApiService.listAllProjects();
 
     this.setState({
         initialState: {
