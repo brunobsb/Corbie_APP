@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { MasterTemplate } from '../../templates';
-import { HomeView } from  '../../components/molecules/'
+import { TaskView } from  '../../components/molecules/'
 
-class Home extends Component {
+class Task extends Component {
   render() {
     return (
       <MasterTemplate loggedUser={this.props.loggedUser} {...this.props}>
-      <HomeView/>
+      <TaskView/>
      </MasterTemplate>
     )
   }
 };
 
-export default Home;
+export default Task;

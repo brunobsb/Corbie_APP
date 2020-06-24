@@ -6,34 +6,34 @@ import  ApiService  from '../../../api/Service';
 import { Skeleton } from 'antd';
 
 class FormEdit extends Component {
-    state = {
+  constructor(props) {
+    super(props)
+    this.state = {
       isUserInfoLoaded: false,
       initialState: {
         name: '',
         username: '',
         email: '',
-        password: '',
+        currentPassword: '',
+        newPassword: '',
+        confirmationNewPassword: '',
       },
     };
+  }
   
     async componentDidMount () {
-      console.log(localStorage);
-      const { name, username, email, password } = await ApiService.getUserInfo();
-      const projects = await ApiService.listAllProjects();
-      console.log(projects);
-      const projectid = "5ee947532a8e293c1f4cd66d"
-      const tasks = await ApiService.listAllTasksFromProject(projectid);
-      console.log(tasks);
+
     this.setState({
-        initialState: {
-          name, username, email, password
-        },
+
         isUserInfoLoaded: true,
       });
-    };
+    }  
 
     onSubmitMethod = async (values, actions) => {
-
+      
+      await ApiService.updateUserInfo(values);
+      
+      
     };
 
     render() {
@@ -90,14 +90,44 @@ class FormEdit extends Component {
 
                 <NewInput
                   {...props}
-                  name="password"
-                  label="Senha"
+                  name="currentPassword"
+                  label="Senha Atual"
                   type="password"
                   placeholder="Insira sua senha"
-                  defaultValue={values.password}
-                  value={values.password}
-                  error={errors.password}
-                  touched={touched.password}
+                  defaultValue={values.currentPassword}
+                  value={values.currentPassword}
+                  error={errors.currentPassword}
+                  touched={touched.currentPassword}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  isLoading={isSubmitting}
+                />
+
+                <NewInput
+                  {...props}
+                  name="newPassword"
+                  label="Nova Senha"
+                  type="password"
+                  placeholder="Insira sua senha"
+                  defaultValue={values.newPassword}
+                  value={values.newPassword}
+                  error={errors.newPassword}
+                  touched={touched.newPassword}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  isLoading={isSubmitting}
+                />
+
+                <NewInput
+                  {...props}
+                  name="confirmationNewPassword"
+                  label="Confirmar Senha"
+                  type="password"
+                  placeholder="Insira sua senha"
+                  defaultValue={values.confirmationNewPassword}
+                  value={values.confirmationNewPassword}
+                  error={errors.confirmationNewPassword}
+                  touched={touched.confirmationNewPassword}
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   isLoading={isSubmitting}

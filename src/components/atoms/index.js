@@ -5,3 +5,4 @@ export { default as Text } from './Text/Text';
 export { default as DatePicker } from './DatePicker/DatePicker';
 export { default as InputNumber } from './InputNumber/InputNumber';
 export { default as InputValor } from './InputValor/InputValor';
+export { default as Select } from './Select/Select';

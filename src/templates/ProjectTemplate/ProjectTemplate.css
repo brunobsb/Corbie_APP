@@ -5,14 +5,14 @@
     
     float: left;
   }
-  .site-layout .site-layout-background {
+  /* .site-layout .site-layout-background {
     background: #fff;
-  }
-  [data-theme="dark"] .site-layout .site-layout-background {
+  } */
+  /* [data-theme="dark"] .site-layout .site-layout-background {
     background: #4a4a48;
-  }
+  } */
 
-  .ant-menu-item-selected {
+  /* .ant-menu-item-selected {
     background-color: #D3D3D3 !important;
     font-weight: bold;
   }
@@ -36,4 +36,4 @@ justify-content: center;
 align-items: center;
 align-content: space-around;
     
-  }
+  } */

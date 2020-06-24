@@ -1,16 +1,16 @@
-import React from 'react';
-//import { Redirect } from 'react-router-dom';
-import { ProjectTemplate } from '../../templates';
+import React, { Component } from 'react';
+import { MasterTemplate } from '../../templates';
 import { FormTaskCreate } from '../../components/molecules';
 
 
-const TaskCreate = (props) => {
-  return (
-
-    <ProjectTemplate>
-      <FormTaskCreate {...props} />
-    </ProjectTemplate>
-  );
-};
+class TaskCreate extends Component {
+  render() {
+    return(
+      <MasterTemplate loggedUser={this.props.loggedUser} {...this.props}>
+      <FormTaskCreate {...this.props} />
+      </MasterTemplate>
+    )
+  }
+}
 
 export default TaskCreate;

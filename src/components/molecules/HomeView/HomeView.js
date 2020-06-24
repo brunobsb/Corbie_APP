@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Text } from '../../atoms';
 
-class TaskView extends Component {
+class HomeView extends Component {
     state = {
         
     }
     render(){
         return(
-<Text>Task View</Text>
+<Text>Home View</Text>
         )
     }
 }
 
-export default TaskView;
+export default HomeView;

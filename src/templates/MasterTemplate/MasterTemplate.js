@@ -2,29 +2,78 @@ import React from 'react';
 import './MasterTemplate.css';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Link } from './MasterTemplate.style';
+import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/images/Logo.svg';
 
 const { Header, Content, Footer } = Layout;
+// const { SubMenu } = Menu;
 
-const MasterTemplate = ({children}) => {
+const MasterTemplate = ({children, loggedUser, logout, ...props }) => {
   return (
     <Layout>
       <Header style={{ backgroundColor: '#4A4A48', position: 'fixed', zIndex: 1, width: '100%' }}>
-        <div className="logo" > 
+
+        <Link to="/" className="logo">
           <Logo style={{marginTop:'-10px', width: '50px'}} />
-        </div>
-        <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}>
+        </Link>
+        
+        {loggedUser ?
+          <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}>
+         <Menu.Item key="1" icon={""}>
+            <Link to="/dashboard" >
+              Dashboard
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="2" icon={""}>
+            <Link to="/edit">
+              Perfil
+            </Link>
+          </Menu.Item>
+          <Menu.SubMenu {...props} icon={""} title="Projetos ">
+            <Menu.Item key="create-project">
+              <Link to="/create-project">
+                Criar projeto
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="project">
+            <Link to="/project">
+                Visualizar Projetos
+              </Link>
+            </Menu.Item>
+          </Menu.SubMenu>
+          <Menu.SubMenu {...props} icon={""} title="Tarefas ">
+            <Menu.Item key="create-task">
+              <Link to="create-task" >
+                Criar Tarefa
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="task">
+            <Link to="/task">
+                Visualizar Tarefas
+              </Link>
+            </Menu.Item>
+          </Menu.SubMenu>
+          <Menu.Item key="logout" onClick={logout}>
+            <Link to="/login" >
+              Logout
+            </Link>
+          </Menu.Item>
+         </Menu> 
+         : 
+         <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}> 
           <Menu.Item key="1">
-            <Link to="/signup" />
+            <Link to="/signup">
             Signup
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/login" />
+            <Link to="/login">
             Login
+            </Link>
           </Menu.Item>
-          {/* <Menu.Item key="3">nav 3</Menu.Item> */}
-        </Menu>
+         </Menu> 
+          }
+
       </Header>
       <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
         <Breadcrumb style={{ margin: '16px 0', textAlign:'left' }}>

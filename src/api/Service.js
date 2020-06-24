@@ -1,5 +1,7 @@
 import axios from "axios";
-
+const interceptorApi = axios.create({
+    baseURL: process.env.REACT_APP_API_URL
+})
 class ApiService {
   constructor() {
     this.api = axios.create({
@@ -19,7 +21,7 @@ class ApiService {
 
       const { type, token, refresh_token } = tokenInfo;
       try {
-        await this.api.get("/api/private/verify-token", {
+        await interceptorApi.get("/api/private/verify-token", {
           headers: { Authorization: `${type} ${token}` }
         });
 
@@ -34,7 +36,7 @@ class ApiService {
           (message === "jwt expired" || message === "Token not found")
         ) {
           try {
-            const { data } = await this.api.get("/api/private/refresh-token", {
+            const { data } = await interceptorApi.get("/api/private/refresh-token", {
               headers: { Authorization: `${type} ${refresh_token}` }
             });
 
@@ -76,6 +78,7 @@ class ApiService {
   };
 
   updateUserInfo = async values => {
+    console.log(values)
     const { data } = await this.api.put("/api/private/user", values);
 
     return data || data.message;

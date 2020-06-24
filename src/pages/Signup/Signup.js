@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MasterTemplate } from '../../templates';
 import { FormSignup } from '../../components/molecules';
 
 
-const Signup = (props) => {
-  return (
+class Signup extends Component {
+  render() {
+    return (
+      <MasterTemplate loggedUser={this.props.loggedUser} {...this.props}>
+        <FormSignup {...this.props} />
+      </MasterTemplate>
+    );
+  }
+}
 
-    <MasterTemplate>
-      <FormSignup {...props} />
-    </MasterTemplate>
-  );
-};
 
 export default Signup;

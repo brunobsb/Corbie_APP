@@ -13,7 +13,15 @@ const formeditSchema = yup.object().shape({
   email: yup.string()
     .required('Campo obrigatório')
     .email('Formato inválido'),
-  password: yup.string()
+  currentPassword: yup.string()
+    .required('Campo obrigatório')
+    .min(6, 'Mínimo de 6 caracteres')
+    .max(60, 'Máximo de 60 caracteres'),
+  newPassword: yup.string()
+    .required('Campo obrigatório')
+    .min(6, 'Mínimo de 6 caracteres')
+    .max(60, 'Máximo de 60 caracteres'),
+  confirmationNewPassword: yup.string()
     .required('Campo obrigatório')
     .min(6, 'Mínimo de 6 caracteres')
     .max(60, 'Máximo de 60 caracteres'),

@@ -11,7 +11,7 @@ const formprojectcreateSchema = yup.object().shape({
     .max(50, 'Máximo de 50 caracteres'),
   hourPrice: yup.number()
     .required('Campo obrigatório'),
-  duration: yup.number()
+  duration: yup.string()
     .required('Campo obrigatório'),
   cost: yup.number()
     .required('Campo obrigatório'),

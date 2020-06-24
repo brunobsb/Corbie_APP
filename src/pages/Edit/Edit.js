@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 // import { Redirect } from 'react-router-dom';
-import { LoggedTemplate } from '../../templates';
+import { MasterTemplate } from '../../templates';
 import { FormEdit } from '../../components/molecules';
 
+class Edit extends Component {
 
-const Edit = (props) => {
-  return (
+  render(){
+    
+    return (
 
-    <LoggedTemplate>
-      <FormEdit {...props} />
-    </LoggedTemplate>
-  );
-};
+      <MasterTemplate loggedUser={this.props.loggedUser} {...this.props}>
+        <FormEdit {...this.props} />
+      </MasterTemplate>
+    );
+  }
+}
+
 
 export default Edit;

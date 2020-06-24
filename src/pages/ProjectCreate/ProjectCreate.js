@@ -1,16 +1,23 @@
-import React from 'react';
-//import { Redirect } from 'react-router-dom';
-import { ProjectTemplate } from '../../templates';
+import React, { Component } from 'react';
+import { MasterTemplate } from '../../templates';
 import { FormProjectCreate } from '../../components/molecules';
 
 
-const ProjectCreate = (props) => {
-  return (
+class ProjectCreate extends Component {
+componentDidMount = async () => {
+await this.props.loadOptions()  
+}
+  render(){
+    // console.log(this.props.options)
+    return (
 
-    <ProjectTemplate>
-      <FormProjectCreate {...props} />
-    </ProjectTemplate>
-  );
-};
+      <MasterTemplate loggedUser={this.props.loggedUser} options={this.props.options} {...this.props} >
+      {this.props.options.length && <FormProjectCreate {...this.props} /> } 
+      
+    </MasterTemplate>
+    );
+  }
+}
 
 export default ProjectCreate;
+

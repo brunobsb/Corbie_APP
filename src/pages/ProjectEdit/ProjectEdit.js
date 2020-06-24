@@ -1,16 +1,17 @@
-import React from 'react';
-//import { Redirect } from 'react-router-dom';
-import { ProjectTemplate } from '../../templates';
+import React, { Component } from 'react';
+import { MasterTemplate } from '../../templates';
 import { FormProjectEdit } from '../../components/molecules';
 
 
-const ProjectEdit = (props) => {
-  return (
+class ProjectEdit extends Component {
+  render() {
+    return(
+      <MasterTemplate loggedUser={this.props.loggedUser} {...this.props}>
+      <FormProjectEdit {...this.props} />
+    </MasterTemplate>
+    );
+  }
+}
 
-    <ProjectTemplate>
-      <FormProjectEdit {...props} />
-    </ProjectTemplate>
-  );
-};
 
 export default ProjectEdit;
