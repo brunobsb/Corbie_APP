@@ -15,14 +15,14 @@ const formprojectcreateSchema = yup.object().shape({
     .required('Campo obrigatório'),
   cost: yup.number()
     .required('Campo obrigatório'),
-  status: yup.string()
-    .required('Campo obrigatório'),
+  // status: yup.string()
+  //   .required('Campo obrigatório'),
   creationDate: yup.date()
     .required('Campo obrigatório'),
   dueDate: yup.date()
     .required('Campo obrigatório'),
   // user: yup.string()
-  //   .required('Campo obrigatório'),//ver relação com campos id no yup.
+  //   .required('Campo obrigatório'),
 });
-
+// type: mongoose.Types.ObjectId, ref: "User", required: true
 export default formprojectcreateSchema;

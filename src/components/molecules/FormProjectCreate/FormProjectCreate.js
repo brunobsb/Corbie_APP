@@ -9,7 +9,6 @@ class FormProjectCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isUserInfoLoaded: false,
       initialState: {
       title: '',
       description: '',
@@ -23,21 +22,15 @@ class FormProjectCreate extends Component {
   };
   }
 
-  async componentDidMount () {
 
-    this.setState({
-
-        isUserInfoLoaded: true,
-      });
-    }  
 
   onSubmitMethod = async (values, actions) => {
-    
-    await ApiService.createProject(values);
     console.log(values);
-   actions.setSubmitting(false);
+  //   await ApiService.createProject(values);
+    
+  //  actions.setSubmitting(true);
 
-   this.props.history.push('/project');
+  //  this.props.history.push('/project');
   };
 
 
@@ -48,7 +41,7 @@ class FormProjectCreate extends Component {
       validationSchema={formprojectcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, ...props }) => (
+      {({handleChange, handleBlur, isSubmitting, values, errors, touched, handleSubmit,  ...props }) => (
         <form onSubmit={handleSubmit}>
           <div className="projectStyle" >
             <NewInput
@@ -164,6 +157,8 @@ class FormProjectCreate extends Component {
               touched={touched.dueDate}
               handleChange={handleChange}
             />
+            
+            
           </div>
           <Button type="submit" isLoading={isSubmitting}>Entrar</Button>
         </form>
@@ -172,7 +167,7 @@ class FormProjectCreate extends Component {
     )
   }
 }
-
+export default FormProjectCreate;
 
 
 // const FormProjectCreate = ({options, ...props}) => {
@@ -330,4 +325,4 @@ class FormProjectCreate extends Component {
 //   );
 // };
 
-export default FormProjectCreate;
+
