@@ -4,18 +4,22 @@ import { FormWrapper } from './FormProjectCreate.style';
 import { NewInput, Button, DatePicker, InputNumber, InputValor, Select } from '../../atoms';
 import  ApiService  from '../../../api/Service';
 import './FormProjectCreate.css';
+// import { Form, Select } from "antd";
+
+// const { Option } = Select;
 
 class FormProjectCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       initialState: {
       title: '',
       description: '',
       hourPrice: '',
       duration: '',
       cost: '',
-      status: '',
+      status: 'ONGOING',
       creationDate: '',
       dueDate: '',
     },
@@ -26,11 +30,12 @@ class FormProjectCreate extends Component {
 
   onSubmitMethod = async (values, actions) => {
     console.log(values);
-  //   await ApiService.createProject(values);
+    await ApiService.createProject(values);
+    // await ApiService.createProject(values);
     
-  //  actions.setSubmitting(true);
+   actions.setSubmitting(false);
 
-  //  this.props.history.push('/project');
+   this.props.history.push('/project');
   };
 
 
@@ -41,7 +46,7 @@ class FormProjectCreate extends Component {
       validationSchema={formprojectcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({handleChange, handleBlur, isSubmitting, values, errors, touched, handleSubmit,  ...props }) => (
+      {({handleChange, handleBlur, isSubmitting, values, errors, touched, handleSubmit, children, ...props }) => (
         <form onSubmit={handleSubmit}>
           <div className="projectStyle" >
             <NewInput
@@ -116,6 +121,23 @@ class FormProjectCreate extends Component {
 
           <div  className="projectStyleCol" >  
 
+
+          {/* <Form.Item label="Status">
+            <Select
+              name="status"
+              onChange={value => {
+                this.setState({ status: value });
+              }}
+              value={ values.value }
+              placeholder="Insira o status"
+            >
+              {this.state.optionsList &&
+                Array.isArray(this.state.optionsList) &&
+                this.state.optionsList.map(database => {
+                  return <Option value={database}>{database}</Option>;
+                })}
+            </Select>
+          </Form.Item> */}
             <Select
               {...props}
               name="status"

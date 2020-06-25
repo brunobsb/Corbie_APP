@@ -15,8 +15,7 @@ const formprojectcreateSchema = yup.object().shape({
     .required('Campo obrigatório'),
   cost: yup.number()
     .required('Campo obrigatório'),
-  // status: yup.string()
-  //   .required('Campo obrigatório'),
+  status: yup.string(), // .required('Campo obrigatório'),
   creationDate: yup.date()
     .required('Campo obrigatório'),
   dueDate: yup.date()

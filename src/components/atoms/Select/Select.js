@@ -2,13 +2,16 @@ import React from 'react';
 import { Select as SelectMaster } from 'antd';
 
 
-const Select = ({name, label, placeholder, isLoading, onChange, handleBlur, setFieldValue, data, ...props}) => {
+const Select = ({value, label, placeholder, isLoading, onChange, handleBlur, setFieldValue, data, ...props}) => {
 
-// {console.log(data)}
-
+  const onChangeSelect = (data) => {
+    // onChange(date);
+    setFieldValue(value, data);
+}
   return (
     <SelectMaster
     showSearch
+    value={value}
     style={{ width: 200 }}
     placeholder={placeholder}
     options={data}

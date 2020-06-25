@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text } from '../../atoms';
+import { Text, Button } from '../../atoms';
+import { Link } from 'react-router-dom';
 
 class TaskView extends Component {
     state = {
@@ -7,7 +8,14 @@ class TaskView extends Component {
     }
     render(){
         return(
+<div>
 <Text>Task View</Text>
+<Button >            
+<Link to="/edit-task" >
+    Edit task
+</Link>
+</Button>
+</div>
         )
     }
 }
