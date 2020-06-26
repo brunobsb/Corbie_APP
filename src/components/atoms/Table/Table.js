@@ -106,7 +106,7 @@ class Table extends Component {
           <Button onClick={this.clearFilters}>Clear filters</Button>
           <Button onClick={this.clearAll}>Clear filters and sorters</Button>
         </Space>
-        <TableMaster columns={columns} dataSource={this.props.dataSource} onChange={this.handleChange} />
+        <TableMaster columns={columns} dataSource={this.props.projects} onChange={this.handleChange} />
         {console.log(JSON.stringify (this.projects))}
       </>
       

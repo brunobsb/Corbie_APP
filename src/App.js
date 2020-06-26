@@ -13,7 +13,6 @@ class App extends Component {
       userInfo: {},
       loggedUser: false,
       options:[],
-      projects:[],
     };
     this.verifyLoggedUser();
   }
@@ -55,37 +54,7 @@ onChange = (value) => {
     options
   })
  }
- 
- loadProjects = () => {
-   console.log("Este é o loadProjects")
-   const projects = [  {
-    key: '1',
-    name: 'John Brownnnnnnn22222',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
-  }]
-  this.setState({
-    projects
-  })
- }
+
 
 
 
@@ -119,7 +88,7 @@ onChange = (value) => {
           <Route
             exact
             path="/project"
-            render={props => <Project logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo} loadProjects={this.loadProjects} projects={this.state.projects}  {...props} />}
+            render={props => <Project logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo}  {...props} />}
           />
           <Route
             exact

@@ -12,6 +12,9 @@ class ProjectView extends Component {
         sortedInfo: null,
     }
 
+      componentDidMount = async () => {
+    await this.props.loadProjects()  
+    }
     render(){
     let { sortedInfo, filteredInfo } = this.state;
     sortedInfo = sortedInfo || {}; // O que é ? pegar tudo de sorted info?
@@ -64,7 +67,7 @@ class ProjectView extends Component {
 </Link>
 </Button> */}
       <>
-        <Table columns={columns} dataSource={this.props.projects} onChange={this.handleChange} />
+        <Table columns={columns} projects={this.props.projects} onChange={this.handleChange} />
       </>
 </div>
         )
