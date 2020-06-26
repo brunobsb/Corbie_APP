@@ -1,119 +1,69 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { Table as TableMaster, Space, Button} from 'antd';
-
+import { Table as TableMaster, Tag as Status, Space } from 'antd';
 
 
 class Table extends Component {
-  state = {
-    filteredInfo: null,
-    sortedInfo: null,
-  };
-
-  handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter); // para que????
-    this.setState({
-      filteredInfo: filters,
-      sortedInfo: sorter,
-    });
-  };
-
-  clearFilters = () => {
-    this.setState({ filteredInfo: null });
-  };
-
-  clearAll = () => {
-    this.setState({
-      filteredInfo: null,
-      sortedInfo: null,
-    });
-  };
-
-  setAgeSort = () => {
-    this.setState({
-      sortedInfo: {
-        order: 'descend',
-        columnKey: 'age',
-      },
-    });
-
-  
-  };
-
-  setNameFilter = () => {
-    this.setState({
-      filteredInfo: {
-        text: 'Joe',
-        value: 'Joe',
-        dataIndex: 'name',
-        key: 'name',
-      },
-    });
-
-  
-  };
 
   render() {
-    let { sortedInfo, filteredInfo } = this.state;
-    sortedInfo = sortedInfo || {}; // O que é ? pegar tudo de sorted info?
-    filteredInfo = filteredInfo || {};
     const columns = [
       {
-        title: 'Name22',
+        title: 'Nome',
         dataIndex: 'name',
         key: 'name',
-        filters: [
-          { text: 'Joe', value: 'Joe' },
-          { text: 'Jim', value: 'Jim' },
-          { text: 'John', value: 'John' },
-        ],
-        filteredValue: filteredInfo.name || null,
-        onFilter: (value, record) => record.name.includes(value),
-        sorter: (a, b) => a.name.length - b.name.length,
-        sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
-        ellipsis: true,
+        render: (text) => <a>{text}</a>,
       },
       {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-        sorter: (a, b) => a.age - b.age,
-        sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
-        ellipsis: false,
+        title: 'Data de criação',
+        dataIndex: 'creationDate',
+        key: 'creationDate',
       },
       {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-        filters: [
-          { text: 'London', value: 'London' },
-          { text: 'New York', value: 'New York' },
-        ],
-        filteredValue: filteredInfo.address || null,
-        onFilter: (value, record) => record.address.includes(value),
-        sorter: (a, b) => a.address.length - b.address.length,
-        sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
-        ellipsis: false,
+        title: 'Status',
+        key: 'status',
+        dataIndex: 'status',
+        render: (status) => (
+          <>
+            {status.map((status) => {
+              let color = status.length > 5 ? 'geekblue' : 'green';
+              if (status === 'CANCELED') {
+                color = 'volcano';
+              } else if (status === 'BACKLOG') {
+                color = 'default';
+              }
+              return (
+                <Status color={color} key={status}>
+                  {status}
+                </Status>
+              );
+            })}
+          </>
+        ),
+      },
+      {
+        title: 'Horas Estimadas',
+        dataIndex: 'duration',
+        key: 'duration',
+      },
+
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+          <Space size="middle">
+                <a>Edit </a>
+                <a>Delete</a>
+          </Space>
+        ),
       },
     ];
     return (
-        
       <>
-        <Space style={{ marginBottom: 16 }}>
-          <Button onClick={this.setAgeSort}>Sort age</Button>
-          <Button onClick={this.setNameFilter}>Filter name</Button>
-          <Button onClick={this.clearFilters}>Clear filters</Button>
-          <Button onClick={this.clearAll}>Clear filters and sorters</Button>
-        </Space>
         <TableMaster columns={columns} dataSource={this.props.projects} onChange={this.handleChange} />
-        {console.log(JSON.stringify (this.projects))}
       </>
-      
     );
   }
 }
 
-export default Table;
 
-// ReactDOM.render(<App />, document.getElementById('container'));
+export default Table;

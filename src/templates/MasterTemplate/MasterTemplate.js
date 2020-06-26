@@ -8,7 +8,8 @@ import { ReactComponent as Logo } from '../../assets/images/Logo.svg';
 const { Header, Content, Footer } = Layout;
 // const { SubMenu } = Menu;
 
-const MasterTemplate = ({children, loggedUser, logout, ...props }) => {
+const MasterTemplate = ({children, loggedUser, logout, ...props
+}) => {
   return (
     <Layout>
       <Header style={{ backgroundColor: '#4A4A48', position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -16,63 +17,63 @@ const MasterTemplate = ({children, loggedUser, logout, ...props }) => {
         <Link to="/" className="logo">
           <Logo style={{marginTop:'-10px', width: '50px'}} />
         </Link>
-        
-        {loggedUser ?
+
+        {loggedUser ? (
           <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}>
-         <Menu.Item key="1" icon={""}>
-            <Link to="/dashboard" >
-              Dashboard
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="2" icon={""}>
-            <Link to="/edit">
-              Perfil
-            </Link>
-          </Menu.Item>
-          <Menu.SubMenu {...props} icon={""} title="Projetos ">
-            <Menu.Item key="create-project">
-              <Link to="/create-project">
-                Criar projeto
+            <Menu.Item key="1" icon={""}>
+              <Link to="/dashboard" >
+                Dashboard
               </Link>
             </Menu.Item>
-            <Menu.Item key="project">
-            <Link to="/project">
-                Visualizar Projetos
+            <Menu.Item key="2" icon={""}>
+              <Link to="/edit">
+                Perfil
               </Link>
             </Menu.Item>
-          </Menu.SubMenu>
-          <Menu.SubMenu {...props} icon={""} title="Tarefas ">
-            <Menu.Item key="create-task">
-              <Link to="create-task" >
-                Criar Tarefa
+            <Menu.SubMenu {...props} icon={""} title="Projetos ">
+              <Menu.Item key="create-project">
+                <Link to="/create-project">
+                  Criar projeto
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="project">
+                <Link to="/project">
+                  Visualizar Projetos
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.SubMenu {...props} icon={""} title="Tarefas ">
+              <Menu.Item key="create-task">
+                <Link to="create-task">
+                  Criar Tarefa
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="task">
+                <Link to="/task">
+                  Visualizar Tarefas
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.Item key="logout" onClick={logout}>
+              <Link to="/login">
+                Logout
               </Link>
             </Menu.Item>
-            <Menu.Item key="task">
-            <Link to="/task">
-                Visualizar Tarefas
+          </Menu>
+        ) : (
+          <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}>
+            <Menu.Item key="1">
+              <Link to="/signup">
+                Signup
               </Link>
             </Menu.Item>
-          </Menu.SubMenu>
-          <Menu.Item key="logout" onClick={logout}>
-            <Link to="/login" >
-              Logout
-            </Link>
-          </Menu.Item>
-         </Menu> 
-         : 
-         <Menu theme="dark" style={{backgroundColor: '#4A4A48'}} mode="horizontal" defaultSelectedKeys={['0']}> 
-          <Menu.Item key="1">
-            <Link to="/signup">
-            Signup
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Link to="/login">
-            Login
-            </Link>
-          </Menu.Item>
-         </Menu> 
-          }
+            <Menu.Item key="2">
+              <Link to="/login">
+                Login
+              </Link>
+            </Menu.Item>
+          </Menu>
+        )}
 
       </Header>
       <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>

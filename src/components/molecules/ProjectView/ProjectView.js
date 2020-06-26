@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Table } from '../../atoms';
+import {Tag as Status, Space } from 'antd';
 // import { Link } from 'react-router-dom';
 
 
@@ -7,65 +8,72 @@ import { Text, Table } from '../../atoms';
 
 
 class ProjectView extends Component {
-    state = {
-        filteredInfo: null,
-        sortedInfo: null,
-    }
 
-      componentDidMount = async () => {
-    await this.props.loadProjects()  
-    }
-    render(){
-    let { sortedInfo, filteredInfo } = this.state;
-    sortedInfo = sortedInfo || {}; // O que é ? pegar tudo de sorted info?
-    filteredInfo = filteredInfo || {};
-    const columns = [
-      {
-        title: 'Name1',
-        dataIndex: 'name',
-        key: 'name',
-        filters: [
-          { text: 'Joe', value: 'Joe' },
-          { text: 'Jim', value: 'Jim' },
-          { text: 'John', value: 'John' },
-        ],
-        filteredValue: filteredInfo.name || null,
-        onFilter: (value, record) => record.name.includes(value),
-        sorter: (a, b) => a.name.length - b.name.length,
-        sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
-        ellipsis: true,
-      },
-      {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-        sorter: (a, b) => a.age - b.age,
-        sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
-        ellipsis: false,
-      },
-      {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-        filters: [
-          { text: 'London', value: 'London' },
-          { text: 'New York', value: 'New York' },
-        ],
-        filteredValue: filteredInfo.address || null,
-        onFilter: (value, record) => record.address.includes(value),
-        sorter: (a, b) => a.address.length - b.address.length,
-        sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
-        ellipsis: false,
-      },
-    ];
+
+
+    componentDidMount = async () => {
+      await this.props.loadProjects()  
+      }
+      render(){
+
+      const columns = [
+        {
+          title: 'Nome',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <a>{text}</a>,
+        },
+        {
+          title: 'Data de criação',
+          dataIndex: 'creationDate',
+          key: 'creationDate',
+        },
+        {
+          title: 'Status',
+          key: 'status',
+          dataIndex: 'status',
+          render: status => (
+            <>
+              {status.map(status => {
+                let color = status.length > 5 ? 'geekblue' : 'green';
+                if (status === 'CANCELED') {
+                  color = 'volcano';
+                } else if(status === 'BACKLOG'){
+                  color = 'default'
+                }
+                return (
+                  <Status color={color} key={status}>
+                    {status}
+                  </Status>
+                );
+              })}
+            </>
+          ),
+        },
+        {
+          title: 'Horas Estimadas',
+          dataIndex: 'duration',
+          key: 'duration',
+        },
+        
+        {
+          title: 'Action',
+          key: 'action',
+          render: (text, record) => (
+            <Space size="middle">
+              <a>Edit </a>
+              <a>Delete</a>
+            </Space>
+          ),
+        },
+      ];
+
+
+ 
         return(
 <div>
 <Text>Project View</Text>
-{/* <Button >            
-<Link to="/edit-project" >
-    Edit project
-</Link>
-</Button> */}
+
       <>
         <Table columns={columns} projects={this.props.projects} onChange={this.handleChange} />
       </>

@@ -7,3 +7,4 @@ export { default as InputNumber } from './InputNumber/InputNumber';
 export { default as InputValor } from './InputValor/InputValor';
 export { default as Select } from './Select/Select';
 export { default as Table } from './Table/Table';
+
