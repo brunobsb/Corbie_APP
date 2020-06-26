@@ -8,8 +8,8 @@ class Project extends Component {
     }
   render() {
     return (
-      <MasterTemplate  projects={this.props.projects}  loggedUser={this.props.loggedUser} {...this.props}>
-      <ProjectView/>
+      <MasterTemplate  loggedUser={this.props.loggedUser} {...this.props}>
+      <ProjectView projects={this.props.projects} />
      </MasterTemplate>
     )
   }
