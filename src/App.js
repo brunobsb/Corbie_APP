@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import 'antd/dist/antd.css';
 import './App.css';
 import { Home, Login, Signup, Edit, Project, ProjectCreate, ProjectEdit, Task, TaskCreate, TaskEdit, Dashboard} from './pages';
 

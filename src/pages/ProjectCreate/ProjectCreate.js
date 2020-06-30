@@ -11,8 +11,8 @@ await this.props.loadOptions()
     // console.log(this.props.options)
     return (
 
-      <MasterTemplate loggedUser={this.props.loggedUser} options={this.props.options} {...this.props} >
-      {this.props.options.length && <FormProjectCreate {...this.props} /> } 
+      <MasterTemplate loggedUser={this.props.loggedUser}  {...this.props} >
+      {this.props.options.length && <FormProjectCreate options={this.props.options} {...this.props} /> } 
       
     </MasterTemplate>
     );

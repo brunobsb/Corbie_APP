@@ -10,33 +10,48 @@ class Project extends Component {
     };
 
   }
+  //   listAllProjects = async (values, actions) => {
+  //   console.log(values);
+  //   await ApiService.listAllProjects(values);
+    
+  // //  actions.setSubmitting(false);
+
+  // //  this.props.history.push('/project');
+  // };
+
+
+
 
   loadProjects = () => {
     console.log("Este é o loadProjects")
     const projects = [
       {
         key: '1',
-        name: 'John Brown',
-        creationDate: 32,
+        title: 'Project John Brown',
+        creationDate: '01/01/2019',
         status: ['BACKLOG', 'ONGOING', 'DONE', 'CANCELED' ],
-        duration: 'New York No. 1 Lake Park',
+        duration: 6,
+        durationnow: 1,
+        dueDate:'01/08/2020'
         
       },
       {
         key: '2',
-        name: 'Jim Green',
-        creationDate: 42,
+        title: 'Project Jim Green',
+        creationDate: '02/02/2019',
         status: ['CANCELED'],
-        duration: 'London No. 1 Lake Park',
-        
+        duration: 12,
+        durationnow: 2,
+        dueDate:'02/09/2020',
       },
       {
         key: '3',
-        name: 'Joe Black',
-        creationDate: 32,
-        status: ['DONE', 'ONGOING'],
-        duration: 'Sidney No. 1 Lake Park',
-        
+        title: 'Project Joe Black',
+        creationDate: '03/03/2019',
+        status: ['DONE'],
+        duration: 18,
+        durationnow: 3,
+        dueDate:'03/10/2020',
       },
     ];
    this.setState({

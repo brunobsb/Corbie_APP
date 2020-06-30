@@ -1,6 +1,6 @@
 // import React, { Component } from 'react';
 // // import ReactDOM from 'react-dom';
-// import 'antd/dist/antd.css';
+
 // import { Table as TableMaster, Space, Button} from 'antd';
 
 

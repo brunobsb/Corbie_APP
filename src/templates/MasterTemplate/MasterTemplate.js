@@ -1,6 +1,5 @@
 import React from 'react';
 import './MasterTemplate.css';
-import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/images/Logo.svg';

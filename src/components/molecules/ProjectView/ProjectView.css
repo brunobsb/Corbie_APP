@@ -1,0 +1,13 @@
+.modalButton{
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	align-items: center;
+    align-content: stretch;
+    border: 1px solid red;
+}
+
+.head{
+    font-size: x-large !important;
+}

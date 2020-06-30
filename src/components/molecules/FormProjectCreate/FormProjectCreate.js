@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import formprojectcreateSchema from './FormProjectCreate.schema';
 import { FormWrapper } from './FormProjectCreate.style';
-import { NewInput, Button, DatePicker, InputNumber, InputValor, Select } from '../../atoms';
+import { NewInput, Button, DatePicker, InputNumber, InputValor, Select, TextAreas } from '../../atoms';
 import  ApiService  from '../../../api/Service';
 import './FormProjectCreate.css';
-// import { Form, Select } from "antd";
+ import { Input } from "antd";
 
-// const { Option } = Select;
+//  const { TextArea } = Input;
 
 class FormProjectCreate extends Component {
   constructor(props) {
@@ -28,6 +28,7 @@ class FormProjectCreate extends Component {
 
 
 
+
   onSubmitMethod = async (values, actions) => {
     console.log(values);
     await ApiService.createProject(values);
@@ -46,7 +47,7 @@ class FormProjectCreate extends Component {
       validationSchema={formprojectcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({handleChange, handleBlur, isSubmitting, values, errors, touched, handleSubmit, children, ...props }) => (
+      {({handleChange, handleBlur, isSubmitting, values, errors, touched, handleSubmit, children, value, ...props }) => (
         <form onSubmit={handleSubmit}>
           <div className="projectStyle" >
             <NewInput
@@ -63,7 +64,7 @@ class FormProjectCreate extends Component {
             />
           </div>
           <div>
-            <NewInput
+            <TextAreas
               {...props}
               style={{width:'100%', backgroundColor:'red !important'}}
               name="description"
@@ -141,16 +142,26 @@ class FormProjectCreate extends Component {
             <Select
               {...props}
               name="status"
-              label="Status: "
-              defaultValue="teste"
-              placeholder="Insira o status"
-              data={this.props.options}
+              label="Status:"
+              placeholder="Insira o valor"
               isLoading={isSubmitting}
               value={values.status}
               error={errors.status}
               touched={touched.status}
-              handleChange={handleChange}
+              
               handleBlur={handleBlur}
+              // name="status"
+              // label="Status: "
+              // defaultValue={handleChange}
+              // placeholder="Insira o status"
+              data={this.props.options}
+              onSelect={values.status}
+              // isLoading={isSubmitting}
+              // value={values.status}
+              // error={errors.status}
+              // touched={touched.status}
+              // handleChange={handleChange}
+              // handleBlur={handleBlur}
             />
 
             
@@ -182,7 +193,9 @@ class FormProjectCreate extends Component {
             
             
           </div>
-          <Button type="submit" isLoading={isSubmitting}>Entrar</Button>
+          <div className="cadastrar" >
+          <Button type="submit" isLoading={isSubmitting}>Cadastrar</Button>
+          </div>
         </form>
       )}
       </FormWrapper>

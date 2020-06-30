@@ -1,6 +1,5 @@
 import React from 'react';
 import '../MasterTemplate/MasterTemplate.css';
-import '../../components/atoms/Table/node_modules/antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { Link } from './LoggedTemplate.style';
 import { ReactComponent as Logo } from '../../assets/images/Logo.svg';

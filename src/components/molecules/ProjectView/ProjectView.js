@@ -1,37 +1,110 @@
 import React, { Component } from 'react';
-import { Text, Table } from '../../atoms';
-import {Tag as Status, Space } from 'antd';
-// import { Link } from 'react-router-dom';
-
+import { Text, Table, Modal } from '../../atoms';
+import {Tag as Status, Space, Select, Input, Button } from 'antd';
+import Highlighter from 'react-highlight-words';
+import { SearchOutlined } from '@ant-design/icons';
+import FormProjectCreate from '../FormProjectCreate/FormProjectCreate';
+import { Link } from 'react-router-dom';
 
 
 
 
 class ProjectView extends Component {
+  state = {
+    searchText: '',
+    searchedColumn: '',
+  };
+// Table Functions
+  getColumnSearchProps = dataIndex => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={node => {
+            this.searchInput = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ width: 188, marginBottom: 8, display: 'block' }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownVisibleChange: visible => {
+      if (visible) {
+        setTimeout(() => this.searchInput.select());
+      }
+    },
+    render: text =>
+      this.state.searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[this.state.searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ) : (
+        text
+      ),
+  });
 
+  handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    this.setState({
+      searchText: selectedKeys[0],
+      searchedColumn: dataIndex,
+    });
+  };
 
+  handleReset = clearFilters => {
+    clearFilters();
+    this.setState({ searchText: '' });
+  };
 
     componentDidMount = async () => {
-      await this.props.loadProjects()  
+      await this.props.loadProjects();
       }
       render(){
 
       const columns = [
         {
           title: 'Nome',
-          dataIndex: 'name',
-          key: 'name',
-          render: text => <a>{text}</a>,
+          dataIndex: 'title',
+          key: 'title',
+          ...this.getColumnSearchProps('title'),
+          render: text =>
+          <Link to="/edit-project">
+          {text}
+          </Link>,
         },
         {
           title: 'Data de criação',
           dataIndex: 'creationDate',
           key: 'creationDate',
+          // ...this.getColumnSearchProps('creationDate'),
         },
         {
           title: 'Status',
           key: 'status',
           dataIndex: 'status',
+          ...this.getColumnSearchProps('status'),
           render: status => (
             <>
               {status.map(status => {
@@ -54,27 +127,46 @@ class ProjectView extends Component {
           title: 'Horas Estimadas',
           dataIndex: 'duration',
           key: 'duration',
+          // ...this.getColumnSearchProps('duration'),
         },
-        
         {
-          title: 'Action',
+          title: 'Horas Trabalhadas',
+          dataIndex: 'durationnow',
+          key: 'durationnow',
+          // ...this.getColumnSearchProps('durationnow'),
+        },
+        {
+          title: 'Prazo',
+          dataIndex: 'dueDate',
+          key: 'dueDate',
+          // ...this.getColumnSearchProps('dueDate'),
+        },
+        {
+          title: 'Ação',
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-              <a>Edit </a>
-              <a>Delete</a>
+            <Link to="/edit-task">
+            Edit Project
+            </Link>
+            <Link to="/edit-task">
+            Delete Project
+            </Link>
             </Space>
           ),
         },
       ];
 
 
- 
         return(
+
 <div>
-<Text>Project View</Text>
+<div className="head" >Seus Projetos</div>
 
       <>
+      <div className="modalButton" >
+        <Modal/>
+      </div>
         <Table columns={columns} projects={this.props.projects} onChange={this.handleChange} />
       </>
 </div>

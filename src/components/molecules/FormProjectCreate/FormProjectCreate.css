@@ -26,3 +26,13 @@
     border: 1px solid blue;
     margin-left: 30px;
 }
+
+.cadastrar{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border: 1px solid blue;
+}
