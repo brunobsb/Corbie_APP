@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Text, Table, Modal } from '../../atoms';
 import {Tag as Status, Space, Select, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import FormProjectCreate from '../FormProjectCreate/FormProjectCreate';
 import { Link } from 'react-router-dom';
+import './ProjectView.css';
 
 
 
@@ -147,10 +148,10 @@ class ProjectView extends Component {
           render: (text, record) => (
             <Space size="middle">
             <Link to="/edit-task">
-            Edit Project
+            <EditOutlined />
             </Link>
             <Link to="/edit-task">
-            Delete Project
+            <DeleteOutlined />
             </Link>
             </Space>
           ),
