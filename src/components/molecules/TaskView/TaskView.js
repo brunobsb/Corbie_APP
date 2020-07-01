@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Text, TableTask, ModalTask } from '../../atoms';
 import {Tag as Status, Space, Select, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
-import FormTaskCreate from '../FormTaskCreate/FormTaskCreate';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-
+import './TaskView.css';
 
 
 
@@ -99,7 +98,6 @@ handleReset = clearFilters => {
           title: 'Data de criação',
           dataIndex: 'creationDate',
           key: 'creationDate',
-          ...this.getColumnSearchProps('creationDate'),
         },
         {
           title: 'Status',
@@ -128,19 +126,16 @@ handleReset = clearFilters => {
           title: 'Horas Estimadas',
           dataIndex: 'duration',
           key: 'duration',
-          ...this.getColumnSearchProps('duration'),
         },
         {
           title: 'Horas Trabalhadas',
           dataIndex: 'durationnow',
           key: 'durationnow',
-          ...this.getColumnSearchProps('durationnow'),
         },
         {
           title: 'Prazo',
           dataIndex: 'dueDate',
           key: 'dueDate',
-          ...this.getColumnSearchProps('dueDate'),
         },
         {
           title: 'Ação',
@@ -148,10 +143,10 @@ handleReset = clearFilters => {
           render: (text, record) => (
             <Space size="middle">
             <Link to="/edit-task">
-            Edit Task
+            <EditOutlined />
             </Link>
             <Link to="/edit-task">
-            Delete Task
+            <DeleteOutlined />
             </Link>
             </Space>
           ),
@@ -165,7 +160,7 @@ handleReset = clearFilters => {
 <Text>Suas Tarefas</Text>
 
       <>
-      <div>
+      <div className="modalButton" >
         <ModalTask/>
       </div>
         <TableTask columns={columns} tasks={this.props.tasks} onChange={this.handleChange} />
