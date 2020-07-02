@@ -21,9 +21,21 @@ class Task extends Component {
     super(props);
     this.state = {
       tasks:[],
+      options:[],
     };
 
   }
+
+  loadOptions = () => {
+    console.log("ENTROU!!!!!!")
+   const options = [{value:"BACKLOG", displayValue:"BACKLOG"}, {value:"ONGOING",displayValue:"ONGOING"}, {value:"DONE", displayValue:"DONE"}, {value:"CANCELED", displayValue:"CANCELED"}] 
+ 
+   this.setState({
+     options
+   })
+  }
+
+
 
   loadTasks = () => {
     console.log("Este é o loadTasks")
@@ -31,19 +43,27 @@ class Task extends Component {
       {
         key: '1',
         title: 'Edit Page bugfix',
-        creationDate: '01/01/2019',
-        status: ['BACKLOG', 'ONGOING', 'DONE', 'CANCELED' ],
+        description: 'TESTE',
         duration: 6,
+        cost: 222,
+        status: ['BACKLOG', 'ONGOING', 'DONE', 'CANCELED' ],
+        type: '????',
+        profitable: true,
+        creationDate: '01/01/2019',
         durationnow: 1,
-        dueDate:'01/08/2020'
+        dueDate:'01/08/2020',
         
       },
       {
         key: '2',
         title: 'UserForm update',
-        creationDate: '02/02/2019',
-        status: ['CANCELED'],
+        description: 'TESTE',
         duration: 12,
+        cost: 333,
+        status: ['CANCELED'],
+        type: '????',
+        profitable: true,
+        creationDate: '02/02/2019',
         durationnow: 2,
         dueDate:'02/09/2020',
         
@@ -51,9 +71,13 @@ class Task extends Component {
       {
         key: '3',
         title: 'Layout config',
-        creationDate: '03/03/2019',
-        status: ['DONE'],
+        description: 'TESTE2',
         duration: 18,
+        cost: 444,
+        status: ['DONE'],
+        type: '????',
+        profitable: true,
+        creationDate: '03/03/2019',
         durationnow: 3,
         dueDate:'03/10/2020',
         
@@ -63,12 +87,14 @@ class Task extends Component {
      tasks
    })
   }
-
+  componentDidMount = async () => {
+    await this.loadOptions()  
+    }
 
   render() {
     return (
       <MasterTemplate  loggedUser={this.props.loggedUser} {...this.props}>
-      <TaskView loadTasks={this.loadTasks} tasks={this.state.tasks}  />
+      <TaskView loadTasks={this.loadTasks} tasks={this.state.tasks} options={this.state.options} />
      </MasterTemplate>
     )
   }

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import formprojectcreateSchema from './FormTaskCreate.schema';
+import formtaskcreateSchema from './FormTaskCreate.schema';
 import { FormWrapper } from './FormTaskCreate.style';
-import { NewInput, Button, DatePicker, InputNumber, InputValor } from '../../atoms';
+import { NewInput, Button, DatePicker, InputNumber, InputValor, Select } from '../../atoms';
 import  ApiService  from '../../../api/Service';
 // import './FormTaskCreate.css';
 
 class FormTaskCreate extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+  this.state = {
+    status: '',
     initialState: {
       title: '',
       description: '',
@@ -18,14 +21,21 @@ class FormTaskCreate extends Component {
       creationDate: '',
       dueDate: '',
     },
-  }
+  };
+}
+
+getData = (values, data) => {
+  this.setState({status:data.value})
+    }
 
   onSubmitMethod = async (values, actions) => {
-    // console.log(values);
-    await ApiService.createTask(values);
-    this.actions.setSubmitting(false);
+    console.log(actions);
+    const data = {...values, status:this.state.status}
+    await ApiService.createTask(data);
 
-    this.props.history.push('/login');
+    actions.setSubmitting(false);
+
+    this.props.onCancel();
 
   };
 
@@ -33,12 +43,11 @@ class FormTaskCreate extends Component {
     return(
       <FormWrapper
       initialValues={this.state.initialState}
-      validationSchema={formprojectcreateSchema}
+      validationSchema={formtaskcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, ...props }) => (
+      {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, ...props }) => (
         <form onSubmit={handleSubmit}>
-
 
           <NewInput
             {...props}
@@ -74,13 +83,12 @@ class FormTaskCreate extends Component {
               name="duration"
               label="Duração: "
               placeholder="Insira o tempo de duração do projeto"
-              // isLoading={isSubmitting}
-              defaultValue={values.duration}
+              isLoading={isSubmitting}
               value={values.duration}
-              // error={errors.duration}
-              // touched={touched.duration}
+              error={errors.duration}
+              touched={touched.duration}
               handleChange={handleChange}
-              // handleBlur={handleBlur}
+              handleBlur={handleBlur}
             />
 
           <InputValor
@@ -88,26 +96,28 @@ class FormTaskCreate extends Component {
               name="cost"
               label="Custo do projeto:"
               placeholder="Insira o valor"
-              // isLoading={isSubmitting}
+              isLoading={isSubmitting}
               value={values.cost}
-              // error={errors.hourPrice}
-              // touched={touched.hourPrice}
+              error={errors.cost}
+              touched={touched.cost}
               handleChange={handleChange}
-              // handleBlur={handleBlur}
+              handleBlur={handleBlur}
             />
 
-          <NewInput
-            {...props}
-            name="status"
-            label="Status do projeto"
-            placeholder="Insira o status do projeto"
-            isLoading={isSubmitting}
-            value={values.status}
-            error={errors.status}
-            touched={touched.status}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
+          <Select
+              {...props}
+              name="status"
+              label="Status:"
+              placeholder="Insira o valor"
+              isLoading={isSubmitting}
+              value={values.status}
+              error={errors.status}
+              touched={touched.status}
+              defaultValue={values.status}
+              data={this.props.options}
+              onSelect={values.status}
+              handleChange={this.getData}
+            />
 
           <NewInput
             {...props}
@@ -140,10 +150,10 @@ class FormTaskCreate extends Component {
               label="Início de prazo:  "
               name="creationDate"
               placeholder="Insira a data"
-              // isLoading={isSubmitting}
+              isLoading={isSubmitting}
               value={values.creationDate}
-              // error={errors.creationDate}
-              // touched={touched.creationDate}
+              error={errors.creationDate}
+              touched={touched.creationDate}
               handleChange={handleChange}
             />
 
@@ -153,10 +163,10 @@ class FormTaskCreate extends Component {
               name="dueDate"
               label="Fim do prazo:  "
               placeholder="Insira a data"
-              // isLoading={isSubmitting}
+              isLoading={isSubmitting}
               value={values.dueDate}
-              // error={errors.creationDate}
-              // touched={touched.creationDate}
+              error={errors.dueDate}
+              touched={touched.dueDate}
               handleChange={handleChange}
             />
 
@@ -167,7 +177,7 @@ class FormTaskCreate extends Component {
     );
   }
 }
-
+export default FormTaskCreate;
 // const FormTaskCreate = (props) => {
 //   const initialState = {
 //     title: '',
@@ -329,4 +339,4 @@ class FormTaskCreate extends Component {
 //   );
 // };
 
-export default FormTaskCreate;
+

@@ -12,14 +12,14 @@ class FormProjectCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      status: '',
       initialState: {
       title: '',
       description: '',
       hourPrice: '',
       duration: '',
       cost: '',
-      status: 'ONGOING',
+      status: '',
       creationDate: '',
       dueDate: '',
     },
@@ -27,16 +27,19 @@ class FormProjectCreate extends Component {
   }
 
 
-
+getData = (values, data) => {
+this.setState({status:data.value})
+  }
 
   onSubmitMethod = async (values, actions) => {
-    console.log(values);
-    await ApiService.createProject(values);
-    // await ApiService.createProject(values);
+    console.log(actions);
+    const data = {...values, status:this.state.status}
+    await ApiService.createProject(data);
+ 
     
    actions.setSubmitting(false);
 
-   this.props.history.push('/project');
+    this.props.onCancel();
   };
 
 
@@ -47,7 +50,7 @@ class FormProjectCreate extends Component {
       validationSchema={formprojectcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({handleChange, handleBlur, isSubmitting, values, errors, touched, handleSubmit, children, value, ...props }) => (
+      {({handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, ...props }) => (
         <form onSubmit={handleSubmit}>
           <div className="projectStyle" >
             <NewInput
@@ -77,8 +80,10 @@ class FormProjectCreate extends Component {
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
+
           </div>
           <div className="projectStyleCol" >
+
             <InputValor
               {...props}
               name="hourPrice"
@@ -123,22 +128,7 @@ class FormProjectCreate extends Component {
           <div  className="projectStyleCol" >  
 
 
-          {/* <Form.Item label="Status">
-            <Select
-              name="status"
-              onChange={value => {
-                this.setState({ status: value });
-              }}
-              value={ values.value }
-              placeholder="Insira o status"
-            >
-              {this.state.optionsList &&
-                Array.isArray(this.state.optionsList) &&
-                this.state.optionsList.map(database => {
-                  return <Option value={database}>{database}</Option>;
-                })}
-            </Select>
-          </Form.Item> */}
+
             <Select
               {...props}
               name="status"
@@ -148,20 +138,10 @@ class FormProjectCreate extends Component {
               value={values.status}
               error={errors.status}
               touched={touched.status}
-              
-              handleBlur={handleBlur}
-              // name="status"
-              // label="Status: "
-              // defaultValue={handleChange}
-              // placeholder="Insira o status"
+              defaultValue={values.status}
               data={this.props.options}
               onSelect={values.status}
-              // isLoading={isSubmitting}
-              // value={values.status}
-              // error={errors.status}
-              // touched={touched.status}
-              // handleChange={handleChange}
-              // handleBlur={handleBlur}
+              handleChange={this.getData}
             />
 
             

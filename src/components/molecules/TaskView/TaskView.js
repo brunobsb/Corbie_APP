@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TableTask, ModalTask } from '../../atoms';
-import {Tag as Status, Space, Select, Input, Button } from 'antd';
+import {Tag as Status, Space, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import FormTaskCreate from '../FormTaskCreate/FormTaskCreate';
 import { Link } from 'react-router-dom';
 import './TaskView.css';
 
@@ -13,6 +14,8 @@ class TaskView extends Component {
   state = {
     searchText: '',
     searchedColumn: '',
+    loading: false,
+    visible: false,
   };
 // Table Functions
 getColumnSearchProps = dataIndex => ({
@@ -76,6 +79,23 @@ handleSearch = (selectedKeys, confirm, dataIndex) => {
 handleReset = clearFilters => {
   clearFilters();
   this.setState({ searchText: '' });
+};
+
+showModal = () => {
+  this.setState({
+    visible: true,
+  });
+};
+
+handleOk = () => {
+  this.setState({ loading: true });
+  setTimeout(() => {
+    this.setState({ loading: false, visible: false });
+  }, 3000);
+};
+
+handleCancel = () => {
+  this.setState({ visible: false });
 };
 
     componentDidMount = async () => {
@@ -161,7 +181,9 @@ handleReset = clearFilters => {
 
       <>
       <div className="modalButton" >
-        <ModalTask/>
+        <ModalTask onCancel={this.handleCancel} showModal={this.showModal} handleOk={this.handleOk} onCancelVisible={this.state.visible}>
+          <FormTaskCreate onCancel={this.handleCancel} options={this.props.options} />
+        </ModalTask>
       </div>
         <TableTask columns={columns} tasks={this.props.tasks} onChange={this.handleChange} />
       </>

@@ -7,6 +7,7 @@ class Project extends Component {
     super(props);
     this.state = {
       projects:[],
+      options:[],
     };
 
   }
@@ -21,6 +22,16 @@ class Project extends Component {
 
 
 
+  loadOptions = () => {
+    console.log("ENTROU!!!!!!")
+   const options = [{value:"BACKLOG", displayValue:"BACKLOG"}, {value:"ONGOING",displayValue:"ONGOING"}, {value:"DONE", displayValue:"DONE"}, {value:"CANCELED", displayValue:"CANCELED"}] 
+ 
+   this.setState({
+     options
+   })
+  }
+
+
 
   loadProjects = () => {
     console.log("Este é o loadProjects")
@@ -32,7 +43,7 @@ class Project extends Component {
         status: ['BACKLOG', 'ONGOING', 'DONE', 'CANCELED' ],
         duration: 6,
         durationnow: 1,
-        dueDate:'01/08/2020'
+        dueDate:'01/08/2020',
         
       },
       {
@@ -58,12 +69,14 @@ class Project extends Component {
      projects
    })
   }
-
+  componentDidMount = async () => {
+    await this.loadOptions()  
+    }
 
   render() {
     return (
       <MasterTemplate  loggedUser={this.props.loggedUser} {...this.props}>
-      <ProjectView loadProjects={this.loadProjects} projects={this.state.projects}  />
+      <ProjectView loadProjects={this.loadProjects} projects={this.state.projects} options={this.state.options} />
      </MasterTemplate>
     )
   }

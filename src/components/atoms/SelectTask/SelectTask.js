@@ -1,12 +1,12 @@
 import React from 'react';
-import { Select as SelectMaster } from 'antd';
+import { Select as SelectMasterTask } from 'antd';
 // import { FilterFilled } from '@ant-design/icons';
 // import { findAllByDisplayValue } from '@testing-library/react';
 
 // class Select extends Component {
 // status
 // }
-const Select = ({value, displayValue, handleChange,   filter, name, label, placeholder, isLoading, onChange, handleBlur, setFieldValue, data, ...props}) => {
+const SelectTask = ({value, displayValue, handleChange,   filter, name, label, placeholder, isLoading, onChange, handleBlur, setFieldValue, data, ...props}) => {
 
 //   const onChangeSelect = (data) => {
 //     // onChange(date);
@@ -27,7 +27,7 @@ const Select = ({value, displayValue, handleChange,   filter, name, label, place
   return (
     <div>
     <label htmlFor={value}>{displayValue}</label>
-    <SelectMaster
+    <SelectMasterTask
     style={{ width: 200 }}
     defaultActiveFirstOption
     placeholder={placeholder}
@@ -45,18 +45,18 @@ const Select = ({value, displayValue, handleChange,   filter, name, label, place
     // }
   >
   {data.map(option => (
-    <option  value={option.value} displayValue={option.displayValue}>
+    <option value={option.value} displayValue={option.displayValue}>
     {option.value}
     </option>
      
  
   ))}
   
-  </SelectMaster>
+  </SelectMasterTask>
 </div>
   );
 };
-export default Select;
+export default SelectTask;
 
 {/* <div>
                   <label htmlFor={filter.name}>{filter.name}</label>

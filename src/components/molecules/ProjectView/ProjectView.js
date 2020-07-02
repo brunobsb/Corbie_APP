@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Table, Modal } from '../../atoms';
-import {Tag as Status, Space, Select, Input, Button } from 'antd';
+import {Tag as Status, Space, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import FormProjectCreate from '../FormProjectCreate/FormProjectCreate';
@@ -14,6 +14,8 @@ class ProjectView extends Component {
   state = {
     searchText: '',
     searchedColumn: '',
+    loading: false,
+    visible: false,
   };
 // Table Functions
   getColumnSearchProps = dataIndex => ({
@@ -78,7 +80,23 @@ class ProjectView extends Component {
     clearFilters();
     this.setState({ searchText: '' });
   };
+// modal functions
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
 
+  handleOk = () => {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false, visible: false });
+    }, 3000);
+  };
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
     componentDidMount = async () => {
       await this.props.loadProjects();
       }
@@ -147,10 +165,10 @@ class ProjectView extends Component {
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-            <Link to="/edit-task">
+            <Link to="/edit-project">
             <EditOutlined />
             </Link>
-            <Link to="/edit-task">
+            <Link to="/edit-project">
             <DeleteOutlined />
             </Link>
             </Space>
@@ -166,7 +184,9 @@ class ProjectView extends Component {
 
       <>
       <div className="modalButton" >
-        <Modal/>
+          <Modal onCancel={this.handleCancel} showModal={this.showModal} handleOk={this.handleOk} onCancelVisible={this.state.visible}>
+            <FormProjectCreate onCancel={this.handleCancel} options={this.props.options}/>
+          </Modal>
       </div>
         <Table columns={columns} projects={this.props.projects} onChange={this.handleChange} />
       </>

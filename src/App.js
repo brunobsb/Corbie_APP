@@ -13,7 +13,6 @@ class App extends Component {
     this.state = {
       userInfo: {},
       loggedUser: false,
-      options:[],
     };
     this.verifyLoggedUser();
   }
@@ -44,17 +43,10 @@ class App extends Component {
   }
 
   
-onChange = (value) => {
-  console.log(`selected ${value}`);
-}
- loadOptions = () => {
-   console.log("ENTROU!!!!!!")
-  const options = [{value:"BACKLOG"}, {value:"ONGOING"}, {value:"DONE"}, {value:"CANCELED"}] 
+// onChange = (value) => {
+//   console.log(`selected ${value}`);
+// }
 
-  this.setState({
-    options
-  })
- }
 
 
 
@@ -91,11 +83,11 @@ onChange = (value) => {
             path="/project"
             render={props => <Project logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo}  {...props} />}
           />
-          <Route
+          {/* <Route
             exact
             path="/create-project"
-            render={props => <ProjectCreate logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo} options={this.state.options} loadOptions={this.loadOptions} {...props} />}
-          />
+            render={props => <ProjectCreate logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo} {...props} />}
+          /> */}
           <Route
             exact
             path="/edit-project"
@@ -106,11 +98,11 @@ onChange = (value) => {
             path="/task"
             render={props => <Task logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo} {...props} />}
           />
-          <Route
+          {/* <Route
             exact
             path="/create-task"
             render={props => <TaskCreate logout={this.logout} loggedUser={this.state.loggedUser} userInfo={this.state.userInfo} {...props} />}
-          />
+          /> */}
 
           <Route
             exact
