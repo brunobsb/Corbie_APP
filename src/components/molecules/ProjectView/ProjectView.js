@@ -117,7 +117,7 @@ class ProjectView extends Component {
           title: 'Data de criação',
           dataIndex: 'creationDate',
           key: 'creationDate',
-          // ...this.getColumnSearchProps('creationDate'),
+         
         },
         {
           title: 'Status',
