@@ -17,7 +17,7 @@ class FormTaskCreate extends Component {
       cost: '',
       status: '',
       type: '',
-      profitable: '',
+      profitable: 'true',
       creationDate: '',
       dueDate: '',
     },
@@ -27,17 +27,18 @@ class FormTaskCreate extends Component {
 getData = (values, data) => {
   this.setState({status:data.value})
     }
-
-  onSubmitMethod = async (values, actions) => {
-    console.log(actions);
-    const data = {...values, status:this.state.status}
-    await ApiService.createTask(data);
-
-    actions.setSubmitting(false);
-
-    this.props.onCancel();
-
-  };
+  
+    onSubmitMethod = async (values, actions) => {
+      console.log(actions);
+      const data = {...values, status:this.state.status}
+      await ApiService.createTask(data);
+   
+      
+     actions.setSubmitting(false);
+  
+      this.props.onCancel();
+    };
+  
 
   render() {
     return(
@@ -53,7 +54,7 @@ getData = (values, data) => {
             {...props}
             name="title"
             label="Título"
-            placeholder="Insira o título do projeto"
+            placeholder="Insira o título do tarefa"
             isLoading={isSubmitting}
             value={values.title}
             error={errors.title}
@@ -68,7 +69,7 @@ getData = (values, data) => {
             style={{width:'100%', backgroundColor:'red !important'}}
             name="description"
             label="Descrição"
-            placeholder="Insira descrição do projeto"
+            placeholder="Insira descrição do tarefa"
             isLoading={isSubmitting}
             value={values.description}
             error={errors.description}
@@ -77,12 +78,11 @@ getData = (values, data) => {
             handleBlur={handleBlur}
           />
 
-
-          <InputNumber
+         <InputNumber
               {...props}
               name="duration"
               label="Duração: "
-              placeholder="Insira o tempo de duração do projeto"
+              placeholder="Insira o tempo de duração do tarefa"
               isLoading={isSubmitting}
               value={values.duration}
               error={errors.duration}
@@ -94,7 +94,7 @@ getData = (values, data) => {
           <InputValor
               {...props}
               name="cost"
-              label="Custo do projeto:"
+              label="Custo do tarefa:"
               placeholder="Insira o valor"
               isLoading={isSubmitting}
               value={values.cost}
@@ -168,7 +168,7 @@ getData = (values, data) => {
               error={errors.dueDate}
               touched={touched.dueDate}
               handleChange={handleChange}
-            />
+            /> 
 
           <Button type="submit" isLoading={isSubmitting}>Cadastrar</Button>
         </form>

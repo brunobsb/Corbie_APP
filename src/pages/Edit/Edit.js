@@ -10,7 +10,7 @@ class Edit extends Component {
     return (
 
       <MasterTemplate loggedUser={this.props.loggedUser} {...this.props}>
-        <FormEdit {...this.props} />
+        <FormEdit userInfo={this.props.userInfo} {...this.props} />
       </MasterTemplate>
     );
   }

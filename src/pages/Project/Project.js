@@ -11,6 +11,17 @@ class Project extends Component {
     };
 
   }
+  //   listAllProjects = async (values, actions) => {
+  //   console.log(values);
+  //   await ApiService.listAllProjects(values);
+    
+  // //  actions.setSubmitting(false);
+
+  // //  this.props.history.push('/project');
+  // };
+
+
+
   loadOptions = () => {
     console.log("ENTROU!!!!!!")
    const options = [{value:"BACKLOG", displayValue:"BACKLOG"}, {value:"ONGOING",displayValue:"ONGOING"}, {value:"DONE", displayValue:"DONE"}, {value:"CANCELED", displayValue:"CANCELED"}] 
@@ -19,6 +30,8 @@ class Project extends Component {
      options
    })
   }
+
+
 
   loadProjects = () => {
     console.log("Este é o loadProjects")

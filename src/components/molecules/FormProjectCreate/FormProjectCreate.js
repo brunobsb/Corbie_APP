@@ -48,7 +48,7 @@ this.setState({status:data.value})
       validationSchema={formprojectcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, children, ...props }) => (
+      {({handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, ...props }) => (
         <form onSubmit={handleSubmit}>
           <div className="projectStyle" >
             <NewInput

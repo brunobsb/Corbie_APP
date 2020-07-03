@@ -1,40 +1,46 @@
 import React, { Component } from 'react';
 import formtaskeditSchema from './FormTaskEdit.schema';
 import { FormWrapper } from './FormTaskEdit.style';
-import { NewInput, Button } from '../../atoms';
+import { NewInput, Button, InputNumber, InputValor, Select, DatePicker } from '../../atoms';
 import  ApiService  from '../../../api/Service'
 import { Skeleton } from 'antd';
 
 class FormTaskEdit extends Component {
     state = {
+      status: '',
       isUserInfoLoaded: false,
       initialState: {
         title: '',
         description: '',
-        hourPrice: '',
         duration: '',
         cost: '',
         status: '',
+        type: '',
+        profitable: 'true',
         creationDate: '',
         dueDate: '',
       },
     }
-  
+    
+
+
+
     async componentDidMount () {
       const {
         title,
         description,
-        hourPrice,
         duration,
         cost,
         status,
+        type,
+        profitable,
         creationDate,
-        dueDate
-      } = await ApiService.listAllProjects();
+        dueDate,
+      } = await ApiService.listAllTasks();
 
     this.setState({
         initialState: {
-            title, description, hourPrice, duration, cost, status, creationDate, dueDate
+            title, description, duration, cost, status, type, profitable, creationDate, dueDate
         },
         isUserInfoLoaded: true,
       });
@@ -58,23 +64,23 @@ class FormTaskEdit extends Component {
             {...props}
             name="title"
             label="Título"
-            placeholder="Insira o título do projeto"
+            placeholder="Insira o título do tarefa"
             isLoading={isSubmitting}
-            defaultValue={values.title}
             value={values.title}
             error={errors.title}
             touched={touched.title}
             handleChange={handleChange}
             handleBlur={handleBlur}
-          />
+        />
+
 
           <NewInput
             {...props}
+            style={{width:'100%', backgroundColor:'red !important'}}
             name="description"
             label="Descrição"
-            placeholder="Insira descrição do projeto"
+            placeholder="Insira descrição do tarefa"
             isLoading={isSubmitting}
-            defaultValue={values.description}
             value={values.description}
             error={errors.description}
             touched={touched.description}
@@ -82,61 +88,46 @@ class FormTaskEdit extends Component {
             handleBlur={handleBlur}
           />
 
-          <NewInput
-            {...props}
-            name="hourPrice"
-            label="Preço por Hora trabalhada"
-            placeholder="Insira o valor da hora trabalhada"
-            isLoading={isSubmitting}
-            defaultValue={values.hourPrice}
-            value={values.hourPrice}
-            error={errors.hourPrice}
-            touched={touched.hourPrice}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
+         <InputNumber
+              {...props}
+              name="duration"
+              label="Duração: "
+              placeholder="Insira o tempo de duração do tarefa"
+              isLoading={isSubmitting}
+              value={values.duration}
+              error={errors.duration}
+              touched={touched.duration}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+            />
 
-          <NewInput
-            {...props}
-            name="duration"
-            label="Duração"
-            placeholder="Insira o tempo de duração do projeto"
-            isLoading={isSubmitting}
-            defaultValue={values.duration}
-            value={values.duration}
-            error={errors.duration}
-            touched={touched.duration}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
+          <InputValor
+              {...props}
+              name="cost"
+              label="Custo do tarefa:"
+              placeholder="Insira o valor"
+              isLoading={isSubmitting}
+              value={values.cost}
+              error={errors.cost}
+              touched={touched.cost}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+            />
 
-          <NewInput
-            {...props}
-            name="cost"
-            label="Custo do projeto"
-            placeholder="Insira o custo do projeto"
-            isLoading={isSubmitting}
-            defaultValue={values.cost}
-            value={values.cost}
-            error={errors.cost}
-            touched={touched.cost}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
-
-          <NewInput
-            {...props}
-            name="status"
-            label="Status do projeto"
-            placeholder="Insira o status do projeto"
-            isLoading={isSubmitting}
-            defaultValue={values.status}
-            value={values.status}
-            error={errors.status}
-            touched={touched.status}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
+          <Select
+              {...props}
+              name="status"
+              label="Status:"
+              placeholder="Insira o valor"
+              isLoading={isSubmitting}
+              value={values.status}
+              error={errors.status}
+              touched={touched.status}
+              defaultValue={values.status}
+              data={this.props.options}
+              onSelect={values.status}
+              handleChange={this.getData}
+            />
 
           <NewInput
             {...props}
@@ -144,7 +135,6 @@ class FormTaskEdit extends Component {
             label="Tipo"
             placeholder="Insira o tipo"
             isLoading={isSubmitting}
-            defaultValue={values.type}
             value={values.type}
             error={errors.type}
             touched={touched.type}
@@ -152,13 +142,12 @@ class FormTaskEdit extends Component {
             handleBlur={handleBlur}
           />
 
-         <NewInput
+          <NewInput
             {...props}
             name="profitable"
             label="Profitable"
-            placeholder="???"
+            placeholder="????"
             isLoading={isSubmitting}
-            defaultValue={values.profitable}
             value={values.profitable}
             error={errors.profitable}
             touched={touched.profitable}
@@ -166,33 +155,30 @@ class FormTaskEdit extends Component {
             handleBlur={handleBlur}
           />
 
-          <NewInput
-            {...props}
-            name="creationDate"
-            label="Data de criação"
-            placeholder="Insira a data de criação do projeto"
-            isLoading={isSubmitting}
-            defaultValue={values.creationDate}
-            value={values.creationDate}
-            error={errors.creationDate}
-            touched={touched.creationDate}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
+            <DatePicker
+              {...props}
+              label="Início de prazo:  "
+              name="creationDate"
+              placeholder="Insira a data"
+              isLoading={isSubmitting}
+              value={values.creationDate}
+              error={errors.creationDate}
+              touched={touched.creationDate}
+              handleChange={handleChange}
+            />
 
-          <NewInput
-            {...props}
-            name="dueDate"
-            label="Data final"
-            placeholder="Insira a data final do projeto"
-            isLoading={isSubmitting}
-            defaultValue={values.dueDate}
-            value={values.dueDate}
-            error={errors.dueDate}
-            touched={touched.dueDate}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-          />
+          
+            <DatePicker
+              {...props}
+              name="dueDate"
+              label="Fim do prazo:  "
+              placeholder="Insira a data"
+              isLoading={isSubmitting}
+              value={values.dueDate}
+              error={errors.dueDate}
+              touched={touched.dueDate}
+              handleChange={handleChange}
+            /> 
       </div>
                 <Button type="submit" isLoading={isSubmitting}>Atualizar</Button>
               </form>

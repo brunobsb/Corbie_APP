@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Table, Modal } from '../../atoms';
+import { Table, Modal } from '../../atoms';
 import {Tag as Status, Space, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';

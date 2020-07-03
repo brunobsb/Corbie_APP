@@ -22,9 +22,11 @@ class FormEdit extends Component {
   }
   
     async componentDidMount () {
-
+      const { name, username, email, currentPassword, newPassword, confirmationNewPassword } = await ApiService.getUserInfo();
     this.setState({
-
+      initialState: {
+        name, username, email, currentPassword, newPassword, confirmationNewPassword,
+      },
         isUserInfoLoaded: true,
       });
     }  
@@ -94,7 +96,7 @@ class FormEdit extends Component {
                   label="Senha Atual"
                   type="password"
                   placeholder="Insira sua senha"
-                  defaultValue={values.currentPassword}
+                  // defaultValue={values.currentPassword}
                   value={values.currentPassword}
                   error={errors.currentPassword}
                   touched={touched.currentPassword}
@@ -109,7 +111,7 @@ class FormEdit extends Component {
                   label="Nova Senha"
                   type="password"
                   placeholder="Insira sua senha"
-                  defaultValue={values.newPassword}
+                  // defaultValue={values.newPassword}
                   value={values.newPassword}
                   error={errors.newPassword}
                   touched={touched.newPassword}
@@ -124,7 +126,7 @@ class FormEdit extends Component {
                   label="Confirmar Senha"
                   type="password"
                   placeholder="Insira sua senha"
-                  defaultValue={values.confirmationNewPassword}
+                  // defaultValue={values.confirmationNewPassword}
                   value={values.confirmationNewPassword}
                   error={errors.confirmationNewPassword}
                   touched={touched.confirmationNewPassword}

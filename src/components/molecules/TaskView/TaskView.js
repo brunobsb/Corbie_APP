@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TableTask, ModalTask } from '../../atoms';
+import { TableTask, ModalTask } from '../../atoms';
 import {Tag as Status, Space, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -80,7 +80,7 @@ handleReset = clearFilters => {
   clearFilters();
   this.setState({ searchText: '' });
 };
-
+// modal functions
 showModal = () => {
   this.setState({
     visible: true,
@@ -177,7 +177,7 @@ handleCancel = () => {
  
         return(
 <div>
-<Text>Suas Tarefas</Text>
+<div className="head" >Seus Projetos</div>
 
       <>
       <div className="modalButton" >
