@@ -3,14 +3,14 @@ import 'antd/dist/antd.css';
 import { Checkbox as CheckBoxMaster } from 'antd';
 
 class Checkbox extends React.Component {
-  state = {
-    checked: true,
-    disabled: false,
-  };
+  // state = {
+  //   checked: true,
+  //   disabled: false,
+  // };
 
-  toggleChecked = () => {
-    this.setState({ checked: !this.state.checked });
-  };
+  // toggleChecked = () => {
+  //   this.setState({ checked: !this.state.checked });
+  // };
 
   // toggleDisable = () => {
   //   this.setState({ disabled: !this.state.disabled });
@@ -24,9 +24,9 @@ class Checkbox extends React.Component {
   };
 
   render() {
-    const label = `${this.state.checked ? 'Checked' : 'Unchecked'}-${
-      this.state.disabled ? 'Disabled' : 'Enabled'
-    }`;
+    // const label = `${this.state.checked ? 'Checked' : 'Unchecked'}-${
+    //   this.state.disabled ? 'Disabled' : 'Enabled'
+    // }`;
     return (
       <div>
         {/* <p style={{ marginBottom: '20px' }}> */}
@@ -35,7 +35,7 @@ class Checkbox extends React.Component {
             disabled={this.state.disabled}
             onChange={this.onChange}
           >
-            {label}
+            {/* {label} */}
           </CheckBoxMaster>
         {/* </p> */}
         {/* <p>

@@ -15,9 +15,9 @@ class Project extends Component {
   //   console.log(values);
   //   await ApiService.listAllProjects(values);
     
-  // //  actions.setSubmitting(false);
+  //  actions.setSubmitting(false);
 
-  // //  this.props.history.push('/project');
+  //  this.props.history.push('/project');
   // };
 
 
