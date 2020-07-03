@@ -1,19 +1,19 @@
-// import React, { Component } from 'react';
-// import { Table as TableTaskMaster } from 'antd';
+import React, { Component } from 'react';
+import { Table as TableTaskMaster } from 'antd';
 
 
 
-// class TableTask extends Component {
+class TableTask extends Component {
 
-//   render() {
+  render() {
 
-//     return (
-//       <>
-//         <TableTaskMaster columns={this.props.columns} dataSource={this.props.tasks} onChange={this.handleChange} />
-//       </>
-//     );
-//   }
-// }
+    return (
+      <>
+        <TableTaskMaster columns={this.props.columns} dataSource={this.props.tasks} onChange={this.handleChange} />
+      </>
+    );
+  }
+}
 
 
-// export default TableTask;
+export default TableTask;

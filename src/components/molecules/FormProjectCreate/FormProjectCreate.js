@@ -126,7 +126,6 @@ this.setState({status:data.value})
               touched={touched.status}
               defaultValue={values.status}
               data={this.props.options}
-              // onSelect={values.status}
               handleChange={this.getData}
             />
 

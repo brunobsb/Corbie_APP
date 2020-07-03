@@ -146,19 +146,16 @@ class ProjectView extends Component {
           title: 'Horas Estimadas',
           dataIndex: 'duration',
           key: 'duration',
-          // ...this.getColumnSearchProps('duration'),
         },
         {
           title: 'Horas Trabalhadas',
           dataIndex: 'durationnow',
           key: 'durationnow',
-          // ...this.getColumnSearchProps('durationnow'),
         },
         {
           title: 'Prazo',
           dataIndex: 'dueDate',
           key: 'dueDate',
-          // ...this.getColumnSearchProps('dueDate'),
         },
         {
           title: 'Ação',

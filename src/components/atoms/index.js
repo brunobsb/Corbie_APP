@@ -11,5 +11,4 @@ export { default as Table } from './Table/Table';
 export { default as TableTask } from './TableTask/TableTask';
 export { default as Modal } from './Modal/Modal';
 export { default as ModalTask } from './ModalTask/ModalTask';
-export { default as TextArea } from './TextArea/TextArea';
 export { default as CheckBox } from './CheckBox/CheckBox';
