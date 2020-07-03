@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import formprojectcreateSchema from './FormProjectCreate.schema';
 import { FormWrapper } from './FormProjectCreate.style';
-import { NewInput, Button, DatePicker, InputNumber, InputValor, Select, TextAreas } from '../../atoms';
+import { NewInput, Button, DatePicker, InputNumber, InputValor, Select} from '../../atoms';
 import  ApiService  from '../../../api/Service';
 import './FormProjectCreate.css';
- import { Input } from "antd";
+//  import { Input } from "antd";
 
 //  const { TextArea } = Input;
 
@@ -50,7 +50,7 @@ this.setState({status:data.value})
       validationSchema={formprojectcreateSchema}
       onSubmit={this.onSubmitMethod}
       >
-      {({handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, ...props }) => (
+      {({handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, children, ...props }) => (
         <form onSubmit={handleSubmit}>
           <div className="projectStyle" >
             <NewInput
@@ -67,7 +67,7 @@ this.setState({status:data.value})
             />
           </div>
           <div>
-            <TextAreas
+            {/* <TextArea
               {...props}
               style={{width:'100%', backgroundColor:'red !important'}}
               name="description"
@@ -79,7 +79,7 @@ this.setState({status:data.value})
               touched={touched.description}
               handleChange={handleChange}
               handleBlur={handleBlur}
-            />
+            /> */}
 
           </div>
           <div className="projectStyleCol" >
@@ -140,7 +140,7 @@ this.setState({status:data.value})
               touched={touched.status}
               defaultValue={values.status}
               data={this.props.options}
-              onSelect={values.status}
+              // onSelect={values.status}
               handleChange={this.getData}
             />
 
