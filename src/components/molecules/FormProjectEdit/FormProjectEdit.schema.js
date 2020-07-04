@@ -21,8 +21,6 @@ const formprojecteditSchema = yup.object().shape({
     .required('Campo obrigatório'),
   dueDate: yup.date()
     .required('Campo obrigatório'),
-//   user: yup.string()
-//     .required('Campo obrigatório'),//ver relação com campos id no yup.
 });
 
 export default formprojecteditSchema;

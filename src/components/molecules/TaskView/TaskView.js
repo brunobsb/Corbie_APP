@@ -180,11 +180,10 @@ handleCancel = () => {
       <>
       <div className="modalButton" >
         <ModalTask onCancel={this.handleCancel} showModal={this.showModal} handleOk={this.handleOk} onCancelVisible={this.state.visible}>
-          <FormTaskCreate onCancel={this.handleCancel} options={this.props.options} />
+          <FormTaskCreate onCancel={this.handleCancel} project={this.props.project} options={this.props.options} loadTasks={this.props.loadTasks} />
         </ModalTask>
       </div>
-      {this.props.tasks.length ?
-        <TableTask columns={columns} tasks={this.props.tasks} onChange={this.handleChange} /> : <h1>Nenhuma Tarefa encontrada!</h1>}
+      <TableTask columns={columns} tasks={this.props.tasks} onChange={this.handleChange} />
       </>
 
 </div>

@@ -18,12 +18,13 @@ class Project extends Component {
     const id = e.target.attributes.data.value;
 
     const projectInfos = await this.getProjectInfos(projects, id);
+    await localStorage.setItem('projectInfos', projectInfos)
 console.log({projectInfos})
     this.props.history.push({
       pathname: "/task",
-      state: {
-        projectInfos
-      }
+      // state: {
+      //   projectInfos
+      // }
     });
 
   };

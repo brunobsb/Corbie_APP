@@ -8,13 +8,14 @@ class Task extends Component {
     this.state = {
       tasks:[],
       options:[],
+      project:'',
     };
 
   }
 
   loadOptions = () => {
     console.log("ENTROU!!!!!!")
-   const options = [{value:"BACKLOG", displayValue:"BACKLOG"}, {value:"ONGOING",displayValue:"ONGOING"}, {value:"DONE", displayValue:"DONE"}, {value:"CANCELED", displayValue:"CANCELED"}] 
+   const options = [{value:"Backlog", displayValue:"Backlog"}, {value:"OnGoing",displayValue:"OnGoing"}, {value:"Done", displayValue:"Done"}];
  
    this.setState({
      options
@@ -24,9 +25,12 @@ class Task extends Component {
 
 
   loadTasks = () => {
-const tasks = this.props.history.location.state.projectInfos
+const tasks = localStorage.getItem('projectInfos')projectInfos.tasks
+const project = localStorage.projectInfos._id
+console.log({tasks, project})
    this.setState({
-     tasks
+     tasks,
+     project
    })
   }
   componentDidMount = async () => {
@@ -38,7 +42,7 @@ const tasks = this.props.history.location.state.projectInfos
 
     return (
       <MasterTemplate  loggedUser={this.props.loggedUser} {...this.props}>
-      <TaskView  tasks={this.state.tasks} options={this.state.options} />
+      <TaskView  tasks={this.state.tasks} options={this.state.options} project={this.state.project} loadTasks={this.loadTasks} />
      </MasterTemplate>
     )
   }

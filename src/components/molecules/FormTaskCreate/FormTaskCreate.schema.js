@@ -13,8 +13,8 @@ const formtaskcreateSchema = yup.object().shape({
     .required('Campo obrigatório'),
   cost: yup.number()
     .required('Campo obrigatório'),
-  status: yup.string()
-    .required('Campo obrigatório'),
+  status: yup.string(),
+    // .required('Campo obrigatório'),
   type: yup.string()
     .required('Campo obrigatório'),
   profitable: yup.boolean()

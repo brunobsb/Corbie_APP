@@ -17,7 +17,7 @@ class FormTaskCreate extends Component {
       cost: '',
       status: '',
       type: '',
-      profitable: 'true',
+      profitable: true,
       creationDate: '',
       dueDate: '',
     },
@@ -25,18 +25,23 @@ class FormTaskCreate extends Component {
 }
 
 getData = (values, data) => {
+  console.log({data})
   this.setState({status:data.value})
     }
   
     onSubmitMethod = async (values, actions) => {
       console.log(actions);
+      const id = this.props.project
+      console.log({id})
       const data = {...values, status:this.state.status}
-      await ApiService.createTask(data);
-   
+      console.log({data})
+      await ApiService.createTask(id, data);
+      await this.props.loadTasks();
       
      actions.setSubmitting(false);
   
       this.props.onCancel();
+
     };
   
 
@@ -46,10 +51,12 @@ getData = (values, data) => {
       initialValues={this.state.initialState}
       validationSchema={formtaskcreateSchema}
       onSubmit={this.onSubmitMethod}
+      enableReinitialize
       >
       {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, ...props }) => (
+        
         <form onSubmit={handleSubmit}>
-
+        {console.log({errors})}
           <NewInput
             {...props}
             name="title"
@@ -115,7 +122,6 @@ getData = (values, data) => {
               touched={touched.status}
               defaultValue={values.status}
               data={this.props.options}
-              onSelect={values.status}
               handleChange={this.getData}
             />
 
@@ -170,7 +176,9 @@ getData = (values, data) => {
               handleChange={handleChange}
             /> 
 
-          <Button type="submit" isLoading={isSubmitting}>Cadastrar</Button>
+<div className="cadastrar" >
+          <Button type="submit"  isLoading={isSubmitting}>Cadastrar</Button>
+          </div>
         </form>
       )}
       </FormWrapper>
