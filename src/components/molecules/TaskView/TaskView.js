@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { TableTask, ModalTask } from '../../atoms';
+import { TableTask, ModalTask, ModalEditTask } from '../../atoms';
 import {Tag as Status, Space, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import FormTaskCreate from '../FormTaskCreate/FormTaskCreate';
+import {FormTaskEdit, FormTaskCreate} from '../../molecules';
+import ApiService from '../../../api/Service';
 import { Link } from 'react-router-dom';
 import './TaskView.css';
 
@@ -16,6 +17,8 @@ class TaskView extends Component {
     searchedColumn: '',
     loading: false,
     visible: false,
+    task_id:'',
+    showEditTask: false,
   };
 // Table Functions
 getColumnSearchProps = dataIndex => ({
@@ -97,7 +100,17 @@ handleOk = () => {
 handleCancel = () => {
   this.setState({ visible: false });
 };
-
+deleteTask = async e => {
+  const id = e.target.attributes.data.value;
+  await ApiService.deleteTask(id)
+}
+editTask = async e => {
+  const id = e.target.attributes.data.value;
+  this.setState({task_id:id, showEditTask: true})
+}
+closeEditTask = () => {
+  this.setState({showEditTask: !this.state.showEditTask})
+}
 
       render(){
 
@@ -159,12 +172,14 @@ handleCancel = () => {
           title: 'Ação',
           key: 'action',
           render: (text, record) => (
-            <Space size="middle">
-            <Link to="/edit-task">
-            <EditOutlined />
+            
+            <Space size="middle" data={record._id}>
+            <Link onClick={this.editTask} data={record._id} >
+            {console.log({id:record._id})}
+            <h2 data={record._id}  >Edit</h2>
             </Link>
-            <Link to="/edit-task">
-            <DeleteOutlined />
+            <Link onClick={this.deleteTask}  data={record._id}>
+            <h2 data={record._id}  >Del</h2>
             </Link>
             </Space>
           ),
@@ -172,14 +187,16 @@ handleCancel = () => {
       ];
 
 
- 
+
         return(
 <div>
 <div className="head" >suas tasks</div>
 
       <>
       <div className="modalButton" >
+      {this.state.showEditTask && <ModalEditTask onCancelVisible={this.state.showEditTask} onCancel={this.closeEditTask}> <FormTaskEdit task_id={this.state.task_id} onCancel={this.closeEditTask} options={this.props.options} /></ModalEditTask>}
         <ModalTask onCancel={this.handleCancel} showModal={this.showModal} handleOk={this.handleOk} onCancelVisible={this.state.visible}>
+       
           <FormTaskCreate onCancel={this.handleCancel} project={this.props.project} options={this.props.options} loadTasks={this.props.loadTasks} />
         </ModalTask>
       </div>

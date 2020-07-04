@@ -1,66 +1,63 @@
 import React, { Component } from 'react';
 import formtaskeditSchema from './FormTaskEdit.schema';
 import { FormWrapper } from './FormTaskEdit.style';
-import { NewInput, Button, InputNumber, InputValor, Select, DatePicker } from '../../atoms';
-import  ApiService  from '../../../api/Service'
-import { Skeleton } from 'antd';
+import { NewInput, Button, DatePicker, InputNumber, InputValor, Select } from '../../atoms';
+import  ApiService  from '../../../api/Service';
+// import './FormTaskCreate.css';
 
 class FormTaskEdit extends Component {
-    state = {
+  constructor(props) {
+    super(props);
+  this.state = {
+    status: '',
+    initialState: {
+      title: '',
+      description: '',
+      duration: '',
+      cost: '',
       status: '',
-      isUserInfoLoaded: false,
-      initialState: {
-        title: '',
-        description: '',
-        duration: '',
-        cost: '',
-        status: '',
-        type: '',
-        profitable: 'true',
-        creationDate: '',
-        dueDate: '',
-      },
+      type: '',
+      profitable: true,
+      creationDate: '',
+      dueDate: '',
+    },
+  };
+}
+
+getData = (values, data) => {
+  console.log({data})
+  this.setState({status:data.value})
     }
-    
-
-
-
-    async componentDidMount () {
-      const {
-        title,
-        description,
-        duration,
-        cost,
-        status,
-        type,
-        profitable,
-        creationDate,
-        dueDate,
-      } = await ApiService.listAllTasks();
-
-    this.setState({
-        initialState: {
-            title, description, duration, cost, status, type, profitable, creationDate, dueDate
-        },
-        isUserInfoLoaded: true,
-      });
-    };
-
+  
     onSubmitMethod = async (values, actions) => {
+      console.log(actions);
+      const id = this.props.task_id
+      console.log({id})
+      const data = {...values, status:this.state.status}
+      console.log({data})
+      await ApiService.updateTask(id, data);
+      
+      
+     actions.setSubmitting(false);
+  
+      this.props.onCancel();
 
     };
+  
 
-    render() {
-        return this.state.isUserInfoLoaded ? (
-          <FormWrapper
-            initialValues={this.state.initialState}
-            validationSchema={formtaskeditSchema}
-            onSubmit={this.onSubmitMethod}
-          >
-            {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit, ...props }) => (
-              <form onSubmit={handleSubmit}>
-              <div>
-              <NewInput
+  render() {
+    return(
+      <FormWrapper
+      initialValues={this.state.initialState}
+      validationSchema={formtaskeditSchema}
+      onSubmit={this.onSubmitMethod}
+      enableReinitialize
+      >
+      {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, errors, touched, value, ...props }) => (
+        
+        <form onSubmit={handleSubmit}>
+        {console.log({errors})}
+          <NewInput
             {...props}
             name="title"
             label="Título"
@@ -125,7 +122,6 @@ class FormTaskEdit extends Component {
               touched={touched.status}
               defaultValue={values.status}
               data={this.props.options}
-              onSelect={values.status}
               handleChange={this.getData}
             />
 
@@ -179,16 +175,14 @@ class FormTaskEdit extends Component {
               touched={touched.dueDate}
               handleChange={handleChange}
             /> 
-      </div>
-                <Button type="submit" isLoading={isSubmitting}>Atualizar</Button>
-              </form>
-            )}
-          </FormWrapper>
-        ) : (
-          <Skeleton active/>
-        )
-      }
-    }
-    
-    export default FormTaskEdit;
-    
+
+        <div className="Atualizar" >
+          <Button type="submit"  isLoading={isSubmitting}>Atualizar</Button>
+          </div>
+        </form>
+      )}
+      </FormWrapper>
+    );
+  }
+}
+export default FormTaskEdit;

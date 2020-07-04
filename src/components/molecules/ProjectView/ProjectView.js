@@ -185,6 +185,7 @@ class ProjectView extends Component {
             <FormProjectCreate onCancel={this.handleCancel} options={this.props.options}/>
           </Modal>
       </div>
+      
         <Table columns={columns} projects={this.props.projects} onChange={this.handleChange} />
       </>
 </div>

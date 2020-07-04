@@ -18,7 +18,7 @@ class Modal extends React.Component {
           visible={this.props.onCancelVisible}
           title="Cadastre seu Projeto"
           onOk={this.props.handleOk}
-          onCancel={this.props.handleCancel}
+          onCancel={this.props.onCancel}
           footer={[
             // <Button key="submit" type="primary" style={{ background: "#595959", borderColor: "#595959", borderRadius:"6px", boxShadow:"3px 3px 3px gray"}} loading={loading} onClick={this.handleOk}>
             //   Cadastrar
