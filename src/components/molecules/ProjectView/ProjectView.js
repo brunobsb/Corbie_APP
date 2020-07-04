@@ -97,19 +97,19 @@ class ProjectView extends Component {
   handleCancel = () => {
     this.setState({ visible: false });
   };
-    componentDidMount = async () => {
-      await this.props.loadProjects();
-      }
+
       render(){
 
       const columns = [
         {
           title: 'Nome',
           dataIndex: 'title',
-          key: 'title',
+          key: '_id',
+          
           ...this.getColumnSearchProps('title'),
-          render: text =>
-          <Link to="/edit-project">
+          render: (text,_id) =>
+          <Link data={_id._id} onClick={this.props.onClick}>
+          {console.log(_id._id)}
           {text}
           </Link>,
         },
@@ -124,23 +124,23 @@ class ProjectView extends Component {
           key: 'status',
           dataIndex: 'status',
           ...this.getColumnSearchProps('status'),
-          render: status => (
-            <>
-              {status.map(status => {
-                let color = status.length > 5 ? 'geekblue' : 'green';
-                if (status === 'CANCELED') {
-                  color = 'volcano';
-                } else if(status === 'BACKLOG'){
-                  color = 'default'
-                }
-                return (
-                  <Status color={color} key={status}>
-                    {status}
-                  </Status>
-                );
-              })}
-            </>
-          ),
+          // render: status => (
+          //   <>
+          //     {status.map(status => {
+          //       let color = status.length > 5 ? 'geekblue' : 'green';
+          //       if (status === 'CANCELED') {
+          //         color = 'volcano';
+          //       } else if(status === 'BACKLOG'){
+          //         color = 'default'
+          //       }
+          //       return (
+          //         <Status color={color} key={status}>
+          //           {status}
+          //         </Status>
+          //       );
+          //     })}
+          //   </>
+          // ),
         },
         {
           title: 'Horas Estimadas',

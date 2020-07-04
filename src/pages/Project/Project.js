@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MasterTemplate } from '../../templates';
 import { ProjectView } from  '../../components/molecules/'
+import ApiService from '../../api/Service';
 
 class Project extends Component {
   constructor(props) {
@@ -11,16 +12,28 @@ class Project extends Component {
     };
 
   }
-  //   listAllProjects = async (values, actions) => {
-  //   console.log(values);
-  //   await ApiService.listAllProjects(values);
-    
-  //  actions.setSubmitting(false);
 
-  //  this.props.history.push('/project');
-  // };
+  onClick = async e => {
+    const { projects } = this.state;
+    const id = e.target.attributes.data.value;
 
+    const projectInfos = await this.getProjectInfos(projects, id);
+console.log({projectInfos})
+    this.props.history.push({
+      pathname: "/task",
+      state: {
+        projectInfos
+      }
+    });
 
+  };
+
+  getProjectInfos = async (projects, id) => {
+    const project = await projects.filter(item => item._id.includes(id));
+    const tasks = await ApiService.listAllTasksFromProject(id);
+
+    return { ...project[0], tasks };
+  };
 
   loadOptions = () => {
     console.log("ENTROU!!!!!!")
@@ -36,47 +49,24 @@ class Project extends Component {
   loadProjects = () => {
     console.log("Este é o loadProjects")
     const projects = [
-      {
-        key: '1',
-        title: 'Project John Brown',
-        creationDate: '01/01/2019',
-        status: ['BACKLOG', 'ONGOING', 'DONE', 'CANCELED' ],
-        duration: 6,
-        durationnow: 1,
-        dueDate:'01/08/2020',
-        
-      },
-      {
-        key: '2',
-        title: 'Project Jim Green',
-        creationDate: '02/02/2019',
-        status: ['CANCELED'],
-        duration: 12,
-        durationnow: 2,
-        dueDate:'02/09/2020',
-      },
-      {
-        key: '3',
-        title: 'Project Joe Black',
-        creationDate: '03/03/2019',
-        status: ['DONE'],
-        duration: 18,
-        durationnow: 3,
-        dueDate:'03/10/2020',
-      },
+ 
     ];
    this.setState({
      projects
    })
   }
   componentDidMount = async () => {
+    const projects = await ApiService.listAllProjects();
+
+    this.setState({ projects });
+
     await this.loadOptions()  
     }
 
   render() {
     return (
       <MasterTemplate  loggedUser={this.props.loggedUser} {...this.props}>
-      <ProjectView loadProjects={this.loadProjects} projects={this.state.projects} options={this.state.options} />
+      <ProjectView  projects={this.state.projects} onClick={this.onClick} options={this.state.options} />
      </MasterTemplate>
     )
   }

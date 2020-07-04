@@ -24,62 +24,21 @@ class Task extends Component {
 
 
   loadTasks = () => {
-    console.log("Este é o loadTasks")
-    const tasks = [
-      {
-        key: '1',
-        title: 'Edit Page bugfix',
-        description: 'TESTE',
-        duration: 6,
-        cost: 222,
-        status: ['BACKLOG', 'ONGOING', 'DONE', 'CANCELED' ],
-        type: 'Planning',
-        profitable: true,
-        creationDate: '01/01/2019',
-        // durationnow: 1,
-        dueDate:'01/08/2020',
-      },
-      {
-        key: '2',
-        title: 'UserForm update',
-        description: 'TESTE',
-        duration: 12,
-        cost: 333,
-        status: ['CANCELED'],
-        type: 'Planning',
-        profitable: true,
-        creationDate: '02/02/2019',
-        // durationnow: 2,
-        dueDate:'02/09/2020',
-        
-      },
-      {
-        key: '3',
-        title: 'Layout config',
-        description: 'TESTE2',
-        duration: 18,
-        cost: 444,
-        status: ['DONE'],
-        type: 'Planning',
-        profitable: true,
-        creationDate: '03/03/2019',
-        // durationnow: 3,
-        dueDate:'03/10/2020',
-        
-      },
-    ];
+const tasks = this.props.history.location.state.projectInfos
    this.setState({
      tasks
    })
   }
   componentDidMount = async () => {
-    await this.loadOptions()  
+    await this.loadOptions()
+    await this.loadTasks()
     }
 
   render() {
+
     return (
       <MasterTemplate  loggedUser={this.props.loggedUser} {...this.props}>
-      <TaskView loadTasks={this.loadTasks} tasks={this.state.tasks} options={this.state.options} />
+      <TaskView  tasks={this.state.tasks} options={this.state.options} />
      </MasterTemplate>
     )
   }

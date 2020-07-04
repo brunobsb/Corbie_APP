@@ -98,9 +98,7 @@ handleCancel = () => {
   this.setState({ visible: false });
 };
 
-    componentDidMount = async () => {
-      await this.props.loadTasks()  
-      }
+
       render(){
 
       const columns = [
@@ -124,23 +122,23 @@ handleCancel = () => {
           key: 'status',
           dataIndex: 'status',
           ...this.getColumnSearchProps('status'),
-          render: status => (
-            <>
-              {status.map(status => {
-                let color = status.length > 5 ? 'geekblue' : 'green';
-                if (status === 'CANCELED') {
-                  color = 'volcano';
-                } else if(status === 'BACKLOG'){
-                  color = 'default'
-                }
-                return (
-                  <Status color={color} key={status}>
-                    {status}
-                  </Status>
-                );
-              })}
-            </>
-          ),
+          // render: status => (
+          //   <>
+          //     {status.map(status => {
+          //       let color = status.length > 5 ? 'geekblue' : 'green';
+          //       if (status === 'CANCELED') {
+          //         color = 'volcano';
+          //       } else if(status === 'BACKLOG'){
+          //         color = 'default'
+          //       }
+          //       return (
+          //         <Status color={color} key={status}>
+          //           {status}
+          //         </Status>
+          //       );
+          //     })}
+          //   </>
+          // ),
         },
         {
           title: 'Horas Estimadas',
@@ -177,7 +175,7 @@ handleCancel = () => {
  
         return(
 <div>
-<div className="head" >Seus Projetos</div>
+<div className="head" >suas tasks</div>
 
       <>
       <div className="modalButton" >
@@ -185,8 +183,10 @@ handleCancel = () => {
           <FormTaskCreate onCancel={this.handleCancel} options={this.props.options} />
         </ModalTask>
       </div>
-        <TableTask columns={columns} tasks={this.props.tasks} onChange={this.handleChange} />
+      {this.props.tasks.length ?
+        <TableTask columns={columns} tasks={this.props.tasks} onChange={this.handleChange} /> : <h1>Nenhuma Tarefa encontrada!</h1>}
       </>
+
 </div>
         )
     }
