@@ -25,8 +25,8 @@ class Task extends Component {
 
 
   loadTasks = () => {
-const tasks = localStorage.getItem('projectInfos')projectInfos.tasks
-const project = localStorage.projectInfos._id
+const tasks = this.props.history.location.state.projectInfos.tasks
+const project = this.props.history.location.state.projectInfos._id
 console.log({tasks, project})
    this.setState({
      tasks,
